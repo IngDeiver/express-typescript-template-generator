@@ -1,0 +1,51 @@
+{
+    "tags": {
+        "allowUnknownTags": ["category","subcategory"]
+    },
+    "source": {
+        "exclude":["reportWebVitals.ts"],
+        "include": ["./src"],
+        "includePattern": "\\.(jsx|js|ts|tsx)$",
+        "excludePattern": "(node_modules/|jsdoc/docs|public|reportWebVitals)"
+    },
+    "plugins": [
+        "node_modules/better-docs/category",
+        "node_modules/better-docs/typescript"
+    ],
+    "opts": {
+        "encoding": "utf8",
+        "destination": "jsdoc/docs/",
+        "recurse": true,
+        "verbose": true,
+        "template": "node_modules/better-docs",
+        "readme": "jsdoc/readme.md"
+    },
+    "templates": {
+        "cleverLinks": false,
+        "monospaceLinks": false,
+        "search": true,
+        "default": {
+            "staticFiles": {
+              "include": [
+                  "./jsdoc/statics"
+              ]
+            }
+        },
+        "better-docs": {
+            "logo": "logo.png",
+            "title": "Documentation",
+            "css": "style.css",
+            "trackingCode": "tracking-code-which-will-go-to-the-HEAD",
+	    "hideGenerator": false,
+            "navLinks": [
+                {
+                    "label": "Github",
+                    "href": "https://github.com/IngDeiver"
+                }
+            ]
+        }
+    },
+    "typescript": {
+        "moduleRoot": "src"
+    }
+}
