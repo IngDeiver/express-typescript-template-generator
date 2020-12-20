@@ -4,45 +4,102 @@ import morgan from 'morgan';
 import router from '../routes';
 import errorHandler from '../exceptions/errorHandler';
 
-export default class Server {
-    public app: express.Application;
+/**
+ *
+ *
+ * The class of managament application
+ * @class Server
+ */
+class Server {
+  /**
+   *
+   *
+   * @type {express.Application} - the instance of application
+   * @memberof Server
+   */
+  public app: express.Application;
 
-    public env: string;
+  /**
+   *
+   *
+   * @type {string} - the current environment
+   * @memberof Server
+   */
+  public env: string;
 
-    // eslint-disable-next-line no-unused-vars
-    constructor(private port: number) {
-      this.app = express();
-      this.env = process.env.NODE_ENV || 'development';
-      this.initializeMiddlewares();
-      this.initializeRoutes();
-      this.initializeErrorHandling();
+  /**
+   * Creates an instance of Server.
+   * @param {number} port - The por of app listen
+   * @memberof Server
+   */
+  // eslint-disable-next-line no-unused-vars
+  constructor(private port: number) {
+    this.app = express();
+    this.env = process.env.NODE_ENV || 'development';
+    this.initializeMiddlewares();
+    this.initializeRoutes();
+    this.initializeErrorHandling();
+  }
+
+  /**
+   *
+   * Initialize the application
+   * @static
+   * @param {number} port - the port
+   * @return Server
+   * @memberof Server
+   */
+  static init(port: number): Server {
+    return new Server(port);
+  }
+
+  /**
+   *
+   * Start listen the server
+   * @param {Function} callback
+   * @memberof Server
+   */
+  listen(callback: Function): void {
+    this.app.listen(this.port, callback());
+  }
+
+  /**
+   *
+   * Initialize the middlewares of the application
+   * @private
+   * @memberof Server
+   */
+  private initializeMiddlewares() {
+    if (this.env === 'production') {
+      this.app.use(morgan('combined'));
+      this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
+    } else if (this.env === 'development') {
+      this.app.use(morgan('dev'));
+      this.app.use(cors({ origin: true, credentials: true }));
     }
 
-    static init(port: number): Server {
-      return new Server(port);
-    }
+    this.app.use(router);
+  }
 
-    listen(callback: Function): void {
-      this.app.listen(this.port, callback());
-    }
+  /**
+   *
+   * Initialize the routes of application
+   * @private
+   * @memberof Server
+   */
+  private initializeRoutes(): void {
+    this.app.use(router);
+  }
 
-    private initializeMiddlewares() {
-      if (this.env === 'production') {
-        this.app.use(morgan('combined'));
-        this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
-      } else if (this.env === 'development') {
-        this.app.use(morgan('dev'));
-        this.app.use(cors({ origin: true, credentials: true }));
-      }
-
-      this.app.use(router);
-    }
-
-    private initializeRoutes(): void {
-      this.app.use(router);
-    }
-
-    private initializeErrorHandling() {
-      this.app.use(errorHandler);
-    }
+  /**
+   *
+   * Initialize the error handler of the applicacion
+   * @private
+   * @memberof Server
+   */
+  private initializeErrorHandling() {
+    this.app.use(errorHandler);
+  }
 }
+
+export default Server;
