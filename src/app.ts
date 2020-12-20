@@ -2,6 +2,8 @@ import Server from './server/Server';
 import router from './routes/router';
 import errorHandler from './server/errorHandler';
 
+require('./config/dotenv');
+
 const PORT: number = process.env.PORT ? parseInt(process.env.PORT) : 3000;
 const server: Server = Server.init(PORT);
 
