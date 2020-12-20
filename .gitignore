@@ -3,3 +3,4 @@ dist
 
 # docs
 jsdoc/docs
+.env.*
