@@ -2,6 +2,7 @@
 /* eslint-disable class-methods-use-this */
 import { NextFunction, Response, Request } from 'express';
 import { IResourceExample } from 'interfaces';
+import { HttpException } from '../exceptions';
 import { ResourceExampleRepository } from '../repository';
 
 class TaskControler {
@@ -11,7 +12,7 @@ class TaskControler {
       const tasks: Array<IResourceExample> = await ResourceExampleRepository.list();
       res.json(tasks);
     } catch (error) {
-      return next(error);
+      return next(new HttpException(500, error.message));
     }
   }
 }

@@ -15,7 +15,7 @@ const errorHandler = (err: HttpException, req: Request, res: Response, cb: NextF
     return cb(err);
   }
 
-  res.status(500).json({
+  res.status(err.status).json({
     error: {
       message: err.message,
       status: err.status,
