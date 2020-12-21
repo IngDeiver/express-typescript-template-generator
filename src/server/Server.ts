@@ -3,6 +3,7 @@ import cors from 'cors';
 import morgan from 'morgan';
 import router from '../routes';
 import errorHandler from '../exceptions/errorHandler';
+import { stream } from '../utils';
 
 /**
  *
@@ -71,10 +72,10 @@ class Server {
    */
   private initializeMiddlewares() {
     if (this.env === 'production') {
-      this.app.use(morgan('combined'));
+      this.app.use(morgan('combined', { stream }));
       this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
     } else if (this.env === 'development') {
-      this.app.use(morgan('dev'));
+      this.app.use(morgan('dev', { stream }));
       this.app.use(cors({ origin: true, credentials: true }));
     }
 
