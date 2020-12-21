@@ -1,35 +1,18 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
-import { ICrud, IResourceExample } from '../interfaces';
-import { ResourceExample } from '../models';
+import { NextFunction, Response, Request } from 'express';
+import { IResourceExample } from 'interfaces';
+import { ResourceExampleRepository } from '../repository';
 
-class ResourceExampleControler implements ICrud<IResourceExample, string> {
-  create(resource: IResourceExample): IResourceExample {
-    return new ResourceExample();
-  }
-
-  list(): Array<IResourceExample> {
-    return [];
-  }
-
-  getById(id: string): IResourceExample {
-    return new ResourceExample();
-  }
-
-  remove(resource: IResourceExample): IResourceExample {
-    return new ResourceExample();
-  }
-
-  removeById(id: string): IResourceExample {
-    return new ResourceExample();
-  }
-
-  update(resource: IResourceExample): IResourceExample {
-    return new ResourceExample();
-  }
-
-  updateById(id: string): IResourceExample {
-    return new ResourceExample();
+class TaskControler {
+  // eslint-disable-next-line no-undef
+  public static async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const tasks: Array<IResourceExample> = await ResourceExampleRepository.list();
+      res.json(tasks);
+    } catch (error) {
+      return next(error);
+    }
   }
 }
-export default new ResourceExampleControler();
+export default TaskControler;

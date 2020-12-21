@@ -1,9 +1,9 @@
-import {
-  NextFunction, Request, Response, Router,
-} from 'express';
+import { Router } from 'express';
+import exampleRouter from './example.route';
 
 const router = Router();
-// eslint-disable-next-line no-unused-vars
-router.get('/api', (req: Request, res: Response, next: NextFunction) => res.sendStatus(200));
+const prefix: string = '/api';
+
+router.use(`${prefix}/example`, exampleRouter);
 
 export default router;
