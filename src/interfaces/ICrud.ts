@@ -1,25 +1,25 @@
 /* eslint-disable no-unused-vars */
 /**
  *
- * The interface for managament generics crud
- * @interface Crud
+ * The interface for managament generics ICrud
+ * @interface ICrud
  * @template T - The type of resource
  * @template U - The type of ID the resource
  */
-interface Crud<T, U> {
+interface ICrud<T, U> {
      /**
       *
       * Create a new resource
       * @param {T} object - Object to create
       * @return {T} - Return a resource
-      * @memberof Crud
+      * @memberof ICrud
       */
      create(object: T): T;
      /**
       *
       * List all resources of type T
       * @return {Array<T>} - Return an Array<T> resources
-      * @memberof Crud
+      * @memberof ICrud
       */
      list(): Array<T>;
      /**
@@ -27,7 +27,7 @@ interface Crud<T, U> {
       * Get a resource by id
       * @param {U} id - id of resource to find
       * @return {T} - Return a resource
-      * @memberof Crud
+      * @memberof ICrud
       */
      getById(id: U): T;
      /**
@@ -35,7 +35,7 @@ interface Crud<T, U> {
       * Remove a resource
       * @param {T} object - Object to remove
       * @return {T} - Return a resource removed
-      * @memberof Crud
+      * @memberof ICrud
       */
      remove(object: T): T;
      /**
@@ -43,15 +43,15 @@ interface Crud<T, U> {
       *  Remove a resource by id
       * @param {U} id - id of resource to find
       * @return {T} - Return a resource
-      * @memberof Crud
+      * @memberof ICrud
       */
-     remove(id: U): T;
+     removeById(id: U): T;
      /**
       *
       * Update a resource
       * @param {T} object - Object to update
       * @return {T} - Return a resource updated
-      * @memberof Crud
+      * @memberof ICrud
       */
      update(object: T): T;
      /**
@@ -59,9 +59,9 @@ interface Crud<T, U> {
       * Update a resource by id
       * @param {U} id - id of resource to find
       * @return {T} - Return a resource updated
-      * @memberof Crud
+      * @memberof ICrud
       */
-     update(id: U): T;
+     updateById(id: U): T;
 }
 
-export default Crud;
+export default ICrud;
