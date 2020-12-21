@@ -1,5 +1,6 @@
-import ResourceExample from './ResourceExample'
+import ResourceExample from './ResourceExample';
 
 export {
-    ResourceExample
-}
+  // eslint-disable-next-line import/prefer-default-export
+  ResourceExample,
+};

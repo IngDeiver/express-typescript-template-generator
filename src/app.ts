@@ -10,5 +10,7 @@ Database.connect();
 
 // START
 // eslint-disable-next-line no-console
-server.listen(() => console.log(`🚀 App listening on the port ${PORT}`));
+if (process.env.NODE_ENV !== 'test') {
+  server.listen(() => console.log(`🚀 App listening on the port ${PORT}`));
+}
 export default server;

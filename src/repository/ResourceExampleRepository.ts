@@ -4,8 +4,8 @@ import { ICrud, IResourceExample } from '../interfaces';
 import { ResourceExample } from '../models';
 
 class ResourceExampleRepository implements ICrud<IResourceExample, string> {
-  async create(task: IResourceExample): Promise<IResourceExample> {
-    return new ResourceExample();
+  async create(resource: IResourceExample): Promise<IResourceExample> {
+    return resource.save();
   }
 
   async list(): Promise<Array<IResourceExample>> {
@@ -16,7 +16,7 @@ class ResourceExampleRepository implements ICrud<IResourceExample, string> {
     return new ResourceExample();
   }
 
-  async remove(task: IResourceExample): Promise<IResourceExample> {
+  async remove(resource: IResourceExample): Promise<IResourceExample> {
     return new ResourceExample();
   }
 
@@ -24,7 +24,7 @@ class ResourceExampleRepository implements ICrud<IResourceExample, string> {
     return new ResourceExample();
   }
 
-  async update(task: IResourceExample): Promise<IResourceExample> {
+  async update(resource: IResourceExample): Promise<IResourceExample> {
     return new ResourceExample();
   }
 

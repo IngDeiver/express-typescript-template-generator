@@ -5,5 +5,6 @@ import { ResourceExampleControler } from '../controller';
 
 const router = Router();
 
-router.get('/', (req: Request, res: Response, x: NextFunction) => ResourceExampleControler.list(req, res, x));
+router.get('/', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.list(req, res, next));
+router.post('/', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.create(req, res, next));
 export default router;

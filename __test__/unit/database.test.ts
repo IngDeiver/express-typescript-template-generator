@@ -1,5 +1,5 @@
 import { Connection } from 'mongoose';
-import { Database } from '../src/config';
+import { Database } from '../../src/config';
 
 let db: Connection;
 beforeAll(async () => {
