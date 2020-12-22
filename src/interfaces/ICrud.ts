@@ -14,7 +14,7 @@ interface ICrud<T, U> {
       * @return {T} - Return a resource
       * @memberof ICrud
       */
-     create(object: T): Promise<T>;
+     create(object: T): Promise<T | null>;
      /**
       *
       * List all resources of type T
@@ -29,7 +29,7 @@ interface ICrud<T, U> {
       * @return {T} - Return a resource
       * @memberof ICrud
       */
-     getById(id: U): Promise<T>;
+     getById(id: U): Promise<T | null>;
      /**
       *
       * Remove a resource
@@ -37,7 +37,7 @@ interface ICrud<T, U> {
       * @return {T} - Return a resource removed
       * @memberof ICrud
       */
-     remove(object: T): Promise<T>;
+     remove(object: T): Promise<T | null>;
      /**
       *
       *  Remove a resource by id
@@ -45,7 +45,7 @@ interface ICrud<T, U> {
       * @return {T} - Return a resource
       * @memberof ICrud
       */
-     removeById(id: U): Promise<T>;
+     removeById(id: U): Promise<T | null>;
      /**
       *
       * Update a resource
@@ -53,15 +53,16 @@ interface ICrud<T, U> {
       * @return {T} - Return a resource updated
       * @memberof ICrud
       */
-     update(object: T): Promise<T>;
+     update(object: T): Promise<T | null>;
      /**
       *
       * Update a resource by id
       * @param {U} id - id of resource to find
+      * @param {T} id - Resource
       * @return {T} - Return a resource updated
       * @memberof ICrud
       */
-     updateById(id: U): Promise<T>;
+     updateById(id: U, resource: T): Promise<T | null>;
 }
 
 export default ICrud;

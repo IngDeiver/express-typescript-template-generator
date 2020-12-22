@@ -21,7 +21,7 @@ class Database {
   */
  static connect(): Connection {
    mongoose.connect(process.env.DB_URI || '', { useNewUrlParser: true, useUnifiedTopology: true })
-     .then(() => console.info('🟢 The database is connected.'))
+     .then(() => logger.info('🟢 The database is connected.'))
      .catch((error) => logger.error(`🔴 Unable to connect to the database: ${error}.`));
    this.db = mongoose.connection;
    return this.db;

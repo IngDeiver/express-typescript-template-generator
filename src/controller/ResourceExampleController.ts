@@ -1,31 +1,124 @@
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
 import { NextFunction, Response, Request } from 'express';
-import { IResourceExample } from 'interfaces';
-import { HttpException } from '../exceptions';
-import { ResourceExampleRepository } from '../repository';
+import { IResourceExample } from '../interfaces';
 import { ResourceExample } from '../models';
+import { HttpException } from '../exceptions';
+import { ResourceService } from '../services';
 
-class TaskControler {
+/**
+ *
+ * The controller of resources
+ * @class ResourceExampleController
+ */
+class ResourceExampleController {
+  /**
+   *
+   * List all resources
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of resources
+   * @memberof ResourceExampleController
+   */
   public static async list(req: Request, res: Response, next: NextFunction) {
     try {
-      const resource: Array<IResourceExample> = await ResourceExampleRepository.list();
-      res.json(resource);
+      const resources: Array<IResourceExample> = await ResourceService.list();
+      res.json(resources);
     } catch (error) {
       return next(new HttpException(500, error.message));
     }
   }
 
+  /**
+   *
+   * create a new resource
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A resource creted
+   * @memberof ResourceExampleController
+   */
   public static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { property } = req.body;
-      if (!property) return next(new HttpException(500, 'The porperty is required'));
+      if (!property) throw new HttpException(400, 'Property is required');
       const resource:IResourceExample = new ResourceExample({ property });
-      const resourceSaved: IResourceExample = await ResourceExampleRepository.create(resource);
+      const resourceSaved: IResourceExample = await ResourceService.create(resource);
       res.json(resourceSaved);
     } catch (error) {
-      return next(new HttpException(500, error.message));
+      return next(new HttpException(error.status, error.message));
+    }
+  }
+
+  /**
+   *
+   * Get resource by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of resources
+   * @memberof ResourceExampleController
+   */
+  public static async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const resource: IResourceExample | null = await ResourceService.getById(id);
+      if (!resource) throw new HttpException(404, 'Resource not found');
+      res.json(resource);
+    } catch (error) {
+      return next(new HttpException(error.status, error.message));
+    }
+  }
+
+  /**
+   *
+   * Remove tasresource by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of resourceS
+   * @memberof ResourceExampleController
+   */
+  public static async removeById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const resource: IResourceExample | null = await ResourceService
+        .removeById(id);
+      if (!resource) throw new HttpException(404, 'Resource not found');
+      res.json(resource);
+    } catch (error) {
+      return next(new HttpException(error.status, error.message));
+    }
+  }
+
+  /**
+   *
+   * Update resource by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of resourceS
+   * @memberof ResourceExampleController
+   */
+  public static async updateById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { property } = req.body;
+      if (!property) throw new HttpException(400, 'Property is required');
+      const resourceToUpdated: IResourceExample = new ResourceExample({ property });
+      const resourceUpdated: IResourceExample | null = await ResourceService
+        .updateById(id, resourceToUpdated);
+      if (!resourceUpdated) throw new HttpException(404, 'resource not found');
+      res.json(resourceUpdated);
+    } catch (error) {
+      return next(new HttpException(error.status, error.message));
     }
   }
 }
-export default TaskControler;
+export default ResourceExampleController;
