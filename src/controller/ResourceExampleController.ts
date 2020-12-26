@@ -111,9 +111,8 @@ class ResourceExampleController {
       const { id } = req.params;
       const { property } = req.body;
       if (!property) throw new HttpException(400, 'Property is required');
-      const resourceToUpdated: IResourceExample = new ResourceExample({ property });
       const resourceUpdated: IResourceExample | null = await ResourceService
-        .updateById(id, resourceToUpdated);
+        .updateById(id, { property });
       if (!resourceUpdated) throw new HttpException(404, 'resource not found');
       res.json(resourceUpdated);
     } catch (error) {

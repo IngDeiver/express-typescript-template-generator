@@ -1,6 +1,7 @@
 /* eslint-disable class-methods-use-this */
 import { ICrud, IResourceExample } from '../interfaces';
 import { ResourceExampleRepository } from '../repository';
+import { ResourceExample } from '../models';
 
 /**
  *
@@ -11,7 +12,7 @@ import { ResourceExampleRepository } from '../repository';
 class ResourceService implements ICrud<IResourceExample, string> {
   /**
    *
-   *
+   * Create a resource
    * @param {IResourceExample} resource - The resource to create
    * @return {Promise<IResourceExample>}  A resource created
    * @memberof ResourceService
@@ -22,7 +23,7 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * List all resources
    * @return {Promise<Array<IResourceExample>>}  A list of tasks
    * @memberof ResourceService
    */
@@ -32,7 +33,7 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * Find by id a resource
    * @param {string} id - The id to find
    * @return {Promise<IResourceExample>}  A resource
    * @memberof ResourceService
@@ -43,7 +44,7 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * Remove a resource
    * @param {IResourceExample} resource - The resource to remove
    * @return {Promise<IResourceExample>}  A resource removed
    * @memberof ResourceService
@@ -54,7 +55,7 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * Remove by id a resource
    * @param {string} id - The id to find
    * @return {Promise<IResourceExample>}  A resource removed
    * @memberof ResourceService
@@ -67,7 +68,7 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * Update a resource
    * @param {IResourceExample} resource - The resource to updated
    * @return {Promise<IResourceExample>}  A resource updated
    * @memberof ResourceService
@@ -78,19 +79,18 @@ class ResourceService implements ICrud<IResourceExample, string> {
 
   /**
    *
-   *
+   * Update by id a resource
    * @param {string} id - The id to find
    * @param {IResourceExample} resource - The resource to updated
    * @return {Promise<IResourceExample>} A resource updated
    * @memberof ResourceService
    */
-  async updateById(id: string, resource: IResourceExample): Promise<IResourceExample | null > {
-    const taskToUpdate = await this.getById(id);
-    if (taskToUpdate) {
-      taskToUpdate.property = resource.property;
-      await taskToUpdate.update();
-    }
-    return taskToUpdate;
+  async updateById(id: string, body: Object): Promise<IResourceExample | null > {
+    // eslint-disable-next-line no-unused-vars
+    return new Promise<IResourceExample | null>((resolve, _) => {
+      ResourceExample.findOneAndUpdate({ _id: id }, { ...body }, { new: true },
+        (error, task: IResourceExample | null) => resolve(task));
+    });
   }
 }
 
