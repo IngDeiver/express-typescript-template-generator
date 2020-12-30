@@ -27,7 +27,7 @@ class ResourceExampleController {
       const resources: Array<IResourceExample> = await ResourceService.list();
       res.json(resources);
     } catch (error) {
-      return next(new HttpException(500, error.message));
+      return next(new HttpException(error.status || 500, error.message));
     }
   }
 
@@ -49,7 +49,7 @@ class ResourceExampleController {
       const resourceSaved: IResourceExample = await ResourceService.create(resource);
       res.json(resourceSaved);
     } catch (error) {
-      return next(new HttpException(error.status, error.message));
+      return next(new HttpException(error.status || 500, error.message));
     }
   }
 
@@ -70,7 +70,7 @@ class ResourceExampleController {
       if (!resource) throw new HttpException(404, 'Resource not found');
       res.json(resource);
     } catch (error) {
-      return next(new HttpException(error.status, error.message));
+      return next(new HttpException(error.status || 500, error.message));
     }
   }
 
@@ -92,7 +92,7 @@ class ResourceExampleController {
       if (!resource) throw new HttpException(404, 'Resource not found');
       res.json(resource);
     } catch (error) {
-      return next(new HttpException(error.status, error.message));
+      return next(new HttpException(error.status || 500, error.message));
     }
   }
 
@@ -116,7 +116,7 @@ class ResourceExampleController {
       if (!resourceUpdated) throw new HttpException(404, 'resource not found');
       res.json(resourceUpdated);
     } catch (error) {
-      return next(new HttpException(error.status, error.message));
+      return next(new HttpException(error.status || 500, error.message));
     }
   }
 }
