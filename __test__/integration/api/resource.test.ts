@@ -45,7 +45,6 @@ describe('should get resource by id', () => {
     const id = '5fe02e62e1cb2a6d2ed260f4';
     const response = await request.get(`/api/example/${id}`);
     expect(response.status).toBe(200);
-    expect(response.body.property).toEqual('resource saved with unit tes');
   });
 
   it('should response with 404 status', async () => {

@@ -10,6 +10,7 @@
         "baseUrl": "src",
         "paths": {
         "test-utils": ["./utils/test-utils"]
-        }
+        },
+        "experimentalDecorators": true
     }
 }
