@@ -32,9 +32,9 @@ describe('should save resource', () => {
     expect(response.body.property).toEqual(property);
 
     // remove a resource saved
-    const responseRemove = await request.delete(`/api/task/${response.body._id}`);
+    const responseRemove = await request.delete(`${baseUri}/${response.body._id}`);
     expect(responseRemove.status).toBe(200);
-    expect(responseRemove.body.title).toBeDefined();
+    expect(responseRemove.body.property).toBeDefined();
   });
 
   it('should fail save without property property with 400 status', async () => {
@@ -49,13 +49,13 @@ describe('should save resource', () => {
 describe('should get resource by id', () => {
   it('should response with 200 status', async () => {
     const id = '5fe02e62e1cb2a6d2ed260f4';
-    const response = await request.get(`/api/example/${id}`);
+    const response = await request.get(`${baseUri}/${id}`);
     expect(response.status).toBe(200);
   });
 
   it('should response with 404 status', async () => {
     const id = '5fe0287346956c638f701222';
-    const response = await request.get(`/api/example/${id}`);
+    const response = await request.get(`${baseUri}/${id}`);
     expect(response.status).toBe(404);
     expect(response.body.property).toBeUndefined();
   });
@@ -66,7 +66,7 @@ describe('should update a resource', () => {
   it('should update with 200 status', async () => {
     const id: string = '5fe03005b39766715b4ed1a1';
     const resource = { property: 'resource update with test' };
-    const response = await request.put(`/api/example/${id}`)
+    const response = await request.put(`${baseUri}/${id}`)
       .send(resource);
     expect(response.status).toBe(200);
     expect(response.body.property).toEqual(resource.property);
@@ -74,7 +74,7 @@ describe('should update a resource', () => {
 
   it('should fail with 404 status', async () => {
     const id = '5fe0287346956c638f701bd2';
-    const response = await request.put(`/api/example/${id}`)
+    const response = await request.put(`${baseUri}/${id}`)
       .send({ property: 'resource update with test' });
     expect(response.status).toBe(404);
     expect(response.body.property).toBeUndefined();
@@ -85,7 +85,7 @@ describe('should update a resource', () => {
 describe('should remove a resource', () => {
   it('should fail with 404 status', async () => {
     const id = '5fe0287346956c638f701bd2';
-    const response = await request.delete(`/api/example/${id}`);
+    const response = await request.delete(`${baseUri}/${id}`);
     expect(response.status).toBe(404);
     expect(response.body.property).toBeUndefined();
   });
