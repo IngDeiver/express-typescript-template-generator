@@ -1,17 +1,26 @@
 <h1 align="center">Welcome to Express with typescript and good practices template 👋</h1>
 <p>
-  <a href="https://www.npmjs.com/package/Express with typescript and good practices template" target="_blank">
-    <img alt="Version" src="https://img.shields.io/npm/v/Express with typescript and good practices template.svg">
-  </a>
-  <a href="jsdoc/docs/index.html" target="_blank">
-    <img alt="Documentation" src="https://img.shields.io/badge/documentation-yes-brightgreen.svg" />
-  </a>
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
 </p>
 
-> I create this repository to have a express.js template with good practices and reuse in projects.
+I create this repository to have a express.js template with good practices and reuse in projects.
+
+## Feactures 
+- Typescript
+- Dodumentation with jsdoc (available in jsdoc/docs/index.html)
+- Commits convections
+- Eslint
+- Repository pattern
+- DTO pattern
+- Validation middlwares
+- Error handler
+- Mogoose config
+- Dotenv config
+- Testing with jest
+- Pretty logs with winston
+- Pretty routes pattern
 
 ## Install
 
@@ -40,7 +49,8 @@ npm run test
 
 ## Show your support
 
-Give a ⭐️ if this project helped you!
+Give a ⭐️ if this project helped you!.
+Can make pull request to contribute!.
 
 ***
 _This README was generated with ❤️ by [readme-md-generator](https://github.com/kefranabg/readme-md-generator)_
