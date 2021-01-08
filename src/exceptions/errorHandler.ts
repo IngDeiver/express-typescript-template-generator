@@ -4,6 +4,7 @@ import HttpException from './httpException';
 /**
  *
  * The middleware for catch they erros into application
+ * @category Exceptions
  * @param {HttpException} err - The error (if exist)
  * @param {Request} req - The request
  * @param {Response} res - The response

@@ -6,6 +6,7 @@ import { ResourceExample } from '../models';
 /**
  *
  * The resource service,layer of repository pattern
+ * @category Services
  * @class ResourceService
  * @implements {ICrud<IResourceExample, string>}
  */

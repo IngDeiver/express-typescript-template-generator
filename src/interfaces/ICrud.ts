@@ -2,6 +2,7 @@
 /**
  *
  * The interface for managament generics ICrud
+ * @category Interfaces
  * @interface ICrud
  * @template T - The type of resource
  * @template U - The type of ID the resource

@@ -7,8 +7,9 @@ import { IsString, IsNotEmpty } from 'class-validator';
 /**
  *
  * DTO for resource example
+ * @category DTOs
  * @class ExampleDTO
- *
+ * @param {string}propery - A property example
  */
 class ExampleDTO {
     @IsNotEmpty()

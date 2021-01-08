@@ -28,16 +28,34 @@ I create this repository to have a express.js template with good practices and r
 git clone and npm install
 ```
 
-## Usage
+## Development usage
 
 ```sh
 npm run tsc and and npm run dev
+```
+## Production usage
+
+```sh
+npm start
 ```
 
 ## Run tests
 
 ```sh
 npm run test
+```
+
+## Create documentation
+
+```sh
+npm run jsdoc
+```
+
+## Eslint
+
+```sh
+npm run lint
+npm run lint:fix
 ```
 
 ## Author

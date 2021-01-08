@@ -2,7 +2,10 @@
  *
  *
  * Is a custom exception for implmented with the error handler
+ * @category Exceptions
  * @class HttpException
+ *  @param {number} status - THe status of error
+ *  @param {string} message -The message of error
  * @extends {Error}
  */
 class HttpException extends Error {

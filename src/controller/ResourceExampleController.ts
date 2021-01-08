@@ -9,6 +9,7 @@ import { ResourceService } from '../services';
 /**
  *
  * The controller of resources
+ * @category Controllers
  * @class ResourceExampleController
  */
 class ResourceExampleController {

@@ -7,7 +7,8 @@ import { HttpException } from '../exceptions';
 
 /**
  *
- *
+ * Valid the body of DTO
+ * @category Middlewares
  * @param {*} dto - the dto to validate
  * @param {('body' | 'query' | 'params')} value - the prperty to get from the request
  * @param {boolean} [skipMissingProperties=false] - true if should accept propertys unknow

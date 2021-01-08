@@ -7,6 +7,7 @@ import { ResourceExample } from '../models';
 /**
  *
  * The repository of resources
+ * @category Repositorys
  * @class ResourceRepository
  * @implements {ICrud<IResourceExample, string>}
  */

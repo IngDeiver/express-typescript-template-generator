@@ -9,7 +9,8 @@ import { ExampleDTO } from '../dtos';
 /**
  *
  * Managament the routes of resource
- * @class TaskRouter
+ * @category Routes
+ * @class ExampleRouter
  * @implements {IRoute}
  */
 class ExampleRouter implements IRoute {
