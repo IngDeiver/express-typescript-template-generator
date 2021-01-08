@@ -7,6 +7,7 @@ import server from '../../../src/app';
 
 let app: expres.Application;
 let request: supertest.SuperTest<supertest.Test>;
+const baseUri = '/api/example';
 beforeAll(() => {
   app = server.app;
   request = supertest(app);
@@ -14,7 +15,7 @@ beforeAll(() => {
 
 // list
 it('should get list resources', async () => {
-  const response = await request.get('/api/example');
+  const response = await request.get(baseUri);
   expect(response.status).toBe(200);
   expect(response.body).toBeInstanceOf(Array);
 });
@@ -23,7 +24,7 @@ it('should get list resources', async () => {
 describe('should save resource', () => {
   it('should save with 200 status', async () => {
     const property = 'resource saved with unit tes';
-    const response = await request.post('/api/example')
+    const response = await request.post(baseUri)
       .send({ property })
       .set('Accept', 'application/json');
     expect(response.status).toBe(200);
@@ -32,7 +33,7 @@ describe('should save resource', () => {
   });
 
   it('should fail save without property property with 400 status', async () => {
-    const response = await request.post('/api/example')
+    const response = await request.post(baseUri)
       .set('Accept', 'application/json');
     expect(response.status).toBe(400);
     expect(response.body.title).toBeUndefined();

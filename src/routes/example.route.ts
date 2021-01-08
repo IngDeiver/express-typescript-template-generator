@@ -1,15 +1,54 @@
 import {
   NextFunction, Request, Response, Router,
 } from 'express';
-import { ExampleDTO } from '../dtos';
+import { IRoute } from '../interfaces';
 import { ResourceExampleControler } from '../controller';
-import { validationMiddleware } from '../middlewares';
+import { isDefinedParamMiddleware, validationMiddleware } from '../middlewares';
+import { ExampleDTO } from '../dtos';
 
-const router = Router();
+/**
+ *
+ * Managament the routes of resource
+ * @class TaskRouter
+ * @implements {IRoute}
+ */
+class ExampleRouter implements IRoute {
+  public router = Router();
 
-router.get('/', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.list(req, res, next));
-router.get('/:id', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.getById(req, res, next));
-router.post('/', validationMiddleware(ExampleDTO, 'body'), (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.create(req, res, next));
-router.put('/:id', validationMiddleware(ExampleDTO, 'body', true), (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.updateById(req, res, next));
-router.delete('/:id', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler.removeById(req, res, next));
-export default router;
+  public pathIdParam = '/:id';
+
+  constructor() {
+    this.createRoutes();
+  }
+
+  createRoutes(): void {
+    this.router.get(
+      this.pathIdParam,
+      isDefinedParamMiddleware(),
+      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+        .getById(req, res, next),
+    );
+    this.router.get('/', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+      .list(req, res, next));
+    this.router.post(
+      '/',
+      validationMiddleware(ExampleDTO),
+      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+        .create(req, res, next),
+    );
+    this.router.put(
+      this.pathIdParam,
+      isDefinedParamMiddleware(),
+      validationMiddleware(ExampleDTO, true),
+      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+        .updateById(req, res, next),
+    );
+    this.router.delete(
+      this.pathIdParam,
+      isDefinedParamMiddleware(),
+      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+        .removeById(req, res, next),
+    );
+  }
+}
+export default new ExampleRouter().router;

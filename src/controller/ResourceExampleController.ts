@@ -44,7 +44,6 @@ class ResourceExampleController {
   public static async create(req: Request, res: Response, next: NextFunction) {
     try {
       const { property } = req.body;
-      if (!property) throw new HttpException(400, 'Property is required');
       const resource:IResourceExample = new ResourceExample({ property });
       const resourceSaved: IResourceExample = await ResourceService.create(resource);
       res.json(resourceSaved);
@@ -110,7 +109,6 @@ class ResourceExampleController {
     try {
       const { id } = req.params;
       const { property } = req.body;
-      if (!property) throw new HttpException(400, 'Property is required');
       const resourceUpdated: IResourceExample | null = await ResourceService
         .updateById(id, { property });
       if (!resourceUpdated) throw new HttpException(404, 'resource not found');

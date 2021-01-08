@@ -15,8 +15,8 @@ import { HttpException } from '../exceptions';
  */
 const validationMiddleware = (
   dto: any,
-  value: 'body' | 'query' | 'params',
   skipMissingProperties = false, // true when need update
+  value: 'body' | 'query' | 'params' = 'body',
 ): RequestHandler => (req: Request, res: Response, next: NextFunction) => {
   // plainToClass is a mapping
   validate(plainToClass(dto, req[value]), {
