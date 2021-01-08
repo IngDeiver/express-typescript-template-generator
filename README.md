@@ -25,13 +25,15 @@ I create this repository to have a express.js template with good practices and r
 ## Install
 
 ```sh
-git clone and npm install
+git clone https://github.com/IngDeiver/node-ts-template.git
+npm install
 ```
 
 ## Development usage
 
 ```sh
-npm run tsc and and npm run dev
+npm run tsc
+npm run dev
 ```
 ## Production usage
 

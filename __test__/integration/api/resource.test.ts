@@ -30,6 +30,11 @@ describe('should save resource', () => {
     expect(response.status).toBe(200);
     expect(response.body.property).toBeDefined();
     expect(response.body.property).toEqual(property);
+
+    // remove a resource saved
+    const responseRemove = await request.delete(`/api/task/${response.body._id}`);
+    expect(responseRemove.status).toBe(200);
+    expect(responseRemove.body.title).toBeDefined();
   });
 
   it('should fail save without property property with 400 status', async () => {
