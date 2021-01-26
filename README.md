@@ -5,7 +5,7 @@
   </a>
 </p>
 
-I create this repository to have a express.js template with good practices and reuse in projects.
+Base express.js template with TypeScript and  best practices ready for start to coding.
 
 ## Feactures 
 - Typescript
@@ -22,11 +22,9 @@ I create this repository to have a express.js template with good practices and r
 - Pretty logs with winston
 - Pretty routes pattern
 
-## Install
-
+## Installation
 ```sh
-git clone https://github.com/IngDeiver/node-ts-template.git
-npm install
+npm install -g deiver-express-best-template-generator
 ```
 
 ## Development usage
