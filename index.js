@@ -111,10 +111,9 @@ inquirer
     exec(`cd ${tartgetPath} && git init && npm install`, (error, stdout, stderr) => {
       if (error) {
         console.log(chalk.red(`😭 error: ${error}`));
-        return;
-      } else {
+      }
         console.log(chalk.bold.green(`🚀 Project created in: ${tartgetPath}`));
-        console.log(chalk.bold.green(  `If it was helpful, leave a star ⭐️: https://github.com/IngDeiver/node-ts-template`));
+        console.log(chalk.bold.green(  `If it was helpful, leave a star ⭐️`));
         console.log("");
 
         console.log(chalk.yellow("/--------------------------------------------------------------------/"));
@@ -127,7 +126,6 @@ inquirer
         console.log(chalk.yellow("/ npm run test: for test the project.                                /"));
         console.log(chalk.yellow("/ Open the browser in: http://localhost:3000/api/example             /"));
         console.log(chalk.yellow("/--------------------------------------------------------------------/"));
-      }
     });
   })
   .catch((error) => {
