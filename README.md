@@ -33,7 +33,9 @@ deiver-express-best-template-generator
 ```
 ```sh
 cd <project-name>
+npm install
 ```
+> Configure your .env file with the necessary environment variables.
 
 ## Development usage
 
@@ -41,6 +43,8 @@ cd <project-name>
 npm run tsc
 npm run dev
 ```
+> Then open localhost:3000/api/example to test the api.
+
 ## Production usage
 
 ```sh
