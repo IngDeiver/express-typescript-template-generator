@@ -33,7 +33,6 @@ deiver-express-best-template-generator
 ```
 ```sh
 cd <project-name>
-npm install
 ```
 > Configure your .env file with the necessary environment variables.
 
