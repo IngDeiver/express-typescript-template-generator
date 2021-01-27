@@ -24,12 +24,12 @@ Base express.js template with TypeScript and  best practices ready for start to 
 
 ## Installation
 ```sh
-npm install -g deiver-express-best-template-generator
+npm i -g express-typescript-template-generator
 ```
 
 ## Use
 ```sh
-deiver-express-best-template-generator
+express-typescript-template-generator
 ```
 ```sh
 cd <project-name>
@@ -42,7 +42,7 @@ cd <project-name>
 npm run tsc
 npm run dev
 ```
-> Then open localhost:3000/api/example to test the api.
+> Open the browser in: http://localhost:3000/api/example.
 
 ## Production usage
 
