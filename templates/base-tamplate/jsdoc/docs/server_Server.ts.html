@@ -1,0 +1,242 @@
+
+
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  tracking-code-which-will-go-to-the-HEAD
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>Documentation server/Server.ts</title>
+
+  <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
+  <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
+  <script src="./build/entry.js"></script>
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!--[if lt IE 9]>
+    <script src="//html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+  <![endif]-->
+  <link href="https://fonts.googleapis.com/css?family=Roboto:100,400,700|Inconsolata,700" rel="stylesheet">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.6.3/css/all.css" integrity="sha384-UHRtZLI+pbxtHCWp1t77Bi1L4ZtiqrqD80Kn4Z8NTSRyMA2Fd33n5dQ8lWUE00s/" crossorigin="anonymous">
+  <link type="text/css" rel="stylesheet" href="https://jmblog.github.io/color-themes-for-google-code-prettify/themes/tomorrow-night.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/app.min.css">
+  <link type="text/css" rel="stylesheet" href="styles/iframe.css">
+  <link type="text/css" rel="stylesheet" href="style.css">
+  <script async defer src="https://buttons.github.io/buttons.js"></script>
+
+  
+</head>
+
+
+
+<body class="layout small-header">
+    <div id="stickyNavbarOverlay"></div>
+    
+
+<div class="top-nav">
+    <div class="inner">
+        <a id="hamburger" role="button" class="navbar-burger" aria-label="menu" aria-expanded="false">
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+            <span aria-hidden="true"></span>
+        </a>
+        <div class="logo">
+             
+                <a class="image" href="index.html">
+                    <img src="logo.png" alt="logo">
+                </a>
+            
+            
+        </div>
+        <div class="menu">
+            
+            <div class="navigation">
+                <a
+                    href="index.html"
+                    class="link"
+                >
+                    API Documentation
+                </a>
+                
+                 
+                    
+                        <a
+                            class="link user-link "
+                            href="https://github.com/IngDeiver"
+                        >
+                            Github
+                        </a>
+                    
+                
+                
+            </div>
+        </div>
+    </div>
+</div>
+    <div id="main">
+        <div
+            class="sidebar "
+            id="sidebarNav"
+        >
+            
+                <div class="search-wrapper">
+                    <input id="search" type="text" placeholder="Search docs..." class="input">
+                </div>
+            
+            <nav>
+                
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="ExampleDTO.ExampleDTO.html">ExampleDTO</a></li><li><a href="HttpException.HttpException.html">HttpException</a></li><li><a href="Server.html">Server</a></li><li><a href="Server.Server.html">Server</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Classes</h3><ul><li><a href="ResourceExampleController.html">ResourceExampleController</a></li></ul></div><div class="category"><h2>DTOs</h2><h3>Classes</h3><ul><li><a href="ExampleDTO.html">ExampleDTO</a></li></ul></div><div class="category"><h2>Exceptions</h2><h3>Classes</h3><ul><li><a href="HttpException.html">HttpException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#errorHandler">errorHandler</a></li></ul></div><div class="category"><h2>Interfaces</h2><h3>Interfaces</h3><ul><li><a href="ICrud.html">ICrud</a></li><li><a href="IResourceExample.html">IResourceExample</a></li><li><a href="IRoute.html">IRoute</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Global</h3><ul><li><a href="global.html#isDefinedParam">isDefinedParam</a></li><li><a href="global.html#validationMiddleware">validationMiddleware</a></li></ul></div><div class="category"><h2>Repositorys</h2><h3>Classes</h3><ul><li><a href="ResourceRepository.html">ResourceRepository</a></li></ul></div><div class="category"><h2>Routes</h2><h3>Classes</h3><ul><li><a href="ExampleRouter.html">ExampleRouter</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="ResourceService.html">ResourceService</a></li></ul></div>
+                
+            </nav>
+        </div>
+        <div class="core" id="main-content-wrapper">
+            <div class="content">
+                <header class="page-title">
+                    <p>Source</p>
+                    <h1>server/Server.ts</h1>
+                </header>
+                
+
+
+
+    
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import express from 'express';
+import cors from 'cors';
+import morgan from 'morgan';
+import router from '../routes';
+import errorHandler from '../exceptions/errorHandler';
+import { stream } from '../utils';
+
+/**
+ *
+ *
+ * The class of managament application
+ * @class Server
+ */
+class Server {
+  /**
+   *
+   *
+   * @type {express.Application} - the instance of application
+   * @memberof Server
+   */
+  public app: express.Application;
+
+  /**
+   *
+   *
+   * @type {string} - the current environment
+   * @memberof Server
+   */
+  public env: string;
+
+  /**
+   * Creates an instance of Server.
+   * @param {number} port - The por of app listen
+   * @memberof Server
+   */
+  // eslint-disable-next-line no-unused-vars
+  constructor(private port: number) {
+    this.app = express();
+    this.env = process.env.NODE_ENV || 'development';
+    this.initializeMiddlewares();
+    this.initializeRoutes();
+    this.initializeErrorHandling();
+  }
+
+  /**
+   *
+   * Initialize the application
+   * @static
+   * @param {number} port - the port
+   * @return Server
+   * @memberof Server
+   */
+  static init(port: number): Server {
+    return new Server(port);
+  }
+
+  /**
+   *
+   * Start listen the server
+   * @param {Function} callback
+   * @memberof Server
+   */
+  listen(callback: Function): void {
+    this.app.listen(this.port, callback());
+  }
+
+  /**
+   *
+   * Initialize the middlewares of the application
+   * @private
+   * @memberof Server
+   */
+  private initializeMiddlewares() {
+    if (this.env === 'production') {
+      this.app.use(morgan('combined', { stream }));
+      this.app.use(cors({ origin: 'your.domain.com', credentials: true }));
+    } else if (this.env === 'development') {
+      this.app.use(morgan('dev', { stream }));
+      this.app.use(cors({ origin: true, credentials: true }));
+    }
+
+    this.app.use(express.json());
+    this.app.use(router);
+  }
+
+  /**
+   *
+   * Initialize the routes of application
+   * @private
+   * @memberof Server
+   */
+  private initializeRoutes(): void {
+    this.app.use(router);
+  }
+
+  /**
+   *
+   * Initialize the error handler of the applicacion
+   * @private
+   * @memberof Server
+   */
+  private initializeErrorHandling() {
+    this.app.use(errorHandler);
+  }
+}
+
+export default Server;
+</code></pre>
+        </article>
+    </section>
+
+
+
+
+            </div>
+            
+            <footer class="footer">
+                <div class="content has-text-centered">
+                    <p>Documentation generated by <a href="https://github.com/jsdoc3/jsdoc">JSDoc 3.6.6</a></p>
+                    <p class="sidebar-created-by">
+                        <a href="https://github.com/SoftwareBrothers/better-docs" target="_blank">BetterDocs theme</a> provided with <i class="fas fa-heart"></i> by 
+                        <a href="http://softwarebrothers.co" target="_blank">SoftwareBrothers - JavaScript Development Agency</a>
+                    </p>
+                </div>
+            </footer>
+            
+        </div>
+        <div id="side-nav" class="side-nav">
+        </div>
+    </div>
+<script src="scripts/app.min.js"></script>
+<script>PR.prettyPrint();</script>
+<script src="scripts/linenumber.js"> </script>
+
+<script src="scripts/search.js"> </script>
+
+</body>
+</html>
