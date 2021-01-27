@@ -35,6 +35,8 @@ express-typescript-template-generator
 cd <project-name>
 ```
 > Configure your .env file with the necessary environment variables.
+> Create the .env and .env.dev files at the root of the project with:
+- DB_URI=your database uri
 
 ## Development usage
 
