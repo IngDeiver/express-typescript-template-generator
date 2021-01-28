@@ -1,6 +1,6 @@
 {
   "name": "express-typescript-template-generator",
-  "version": "1.0.20",
+  "version": "1.0.21",
   "description": "Base express.js template with TypeScript and  best practices ready for start to coding ",
   "main": "index.js",
   "scripts": {},
