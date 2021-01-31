@@ -1,7 +1,7 @@
 {
-  "name": "node-app",
+  "name": "<%= projectName %>",
   "version": "1.0.0",
-  "description": "TypeScript + Mongoose + MongoDB + Express API Server template",
+  "description": "<%= projectDescription %>",
   "main": "src/app.js",
   "scripts": {
     "test": "jest --watchAll --detectOpenHandles",
@@ -14,7 +14,7 @@
     "lint:fix": "eslint --fix --ext .ts"
   },
   "keywords": [],
-  "author": "Deiver Carrascal",
+  "author": "<%= author %>",
   "license": "MIT",
   "devDependencies": {
     "@commitlint/cli": "^11.0.0",

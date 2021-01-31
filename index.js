@@ -5,6 +5,7 @@ const path = require("path");
 const fs = require("fs");
 const chalk = require("chalk");
 const { exec } = require("child_process");
+const template = require('./util/template')
 
 const CURRENT_DIR = process.cwd();
 const CHOICES = fs.readdirSync(path.join(__dirname, "templates"));
@@ -27,7 +28,27 @@ const QUESTIONS = [
         return "Project name may only include letters, numbers, underscores and hashes.";
     },
   },
+  {
+    name: "project-author",
+    type: "input",
+    default: "Without author",
+    message: "Author",
+    validate: function (input) {
+      if (/^([A-Za-z\-\_\ \d])+$/.test(input)) return true;
+      else
+        return "Author name may only include letters, numbers, underscores and hashes.";
+    },
+  },
+  {
+    name: "project-description",
+    type: "input",
+    default: "Without description",
+    message: "Write a description"
+  },
 ];
+
+var author = ""
+var projectDescription = ""
 
 function createProjectDirectory(projectPath) {
   if (fs.existsSync(projectPath)) {
@@ -41,9 +62,9 @@ function createProjectDirectory(projectPath) {
   return true;
 }
 
-function createDirectoryContents(templatePath, newProjectPath) {
+function createDirectoryContents(templatePath, projectName) {
   const filesToCreate = fs.readdirSync(templatePath);
-  const basePatch = path.join(CURRENT_DIR, newProjectPath);
+  const basePatch = path.join(CURRENT_DIR, projectName);
 
   filesToCreate.forEach((file) => {
     const origFilePath = path.join(templatePath, file);
@@ -57,7 +78,12 @@ function createDirectoryContents(templatePath, newProjectPath) {
 
       // copy files
       if (stats.isFile()) {
-        const contents = fs.readFileSync(origFilePath, "utf8");
+        // read file content and transform it using template engine
+        let contents = fs.readFileSync(origFilePath, 'utf8');
+        
+        // If the file is package.json apply the dinamyc properties
+        if(file.includes("package.json")) contents = template.render(contents, 
+          { projectName, author, projectDescription});
 
         // Rename
         if (file === ".npmignore") file = ".gitignore";
@@ -65,7 +91,7 @@ function createDirectoryContents(templatePath, newProjectPath) {
       } else if (stats.isDirectory()) {
         fs.mkdirSync(`${writePath}`);
         // recursive call
-        createDirectoryContents(`${origFilePath}`, `${newProjectPath}/${file}`);
+        createDirectoryContents(`${origFilePath}`, `${projectName}/${file}`);
       }
   });
 
@@ -97,6 +123,8 @@ inquirer
   .then((answers) => {
     const templateChoice = answers["template-choice"];
     const projectName = answers["project-name"].trim();
+    author = answers["project-author"];
+    projectDescription = answers["project-description"];
 
     const templatePath = path.join(__dirname, "templates", templateChoice);
     const tartgetPath = path.join(CURRENT_DIR, projectName);
