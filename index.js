@@ -69,7 +69,7 @@ function createDirectoryContents(templatePath, projectName) {
   filesToCreate.forEach((file) => {
     const origFilePath = path.join(templatePath, file);
     const writePath = `${basePatch}/${file}`;
-    const SKIP_FILES = ['node_modules', '.git', '.env', '.env.dev', 'README.md'];
+    const SKIP_FILES = ['node_modules', '.env', '.env.dev', 'README.md'];
     // get stats about the current file
     const stats = fs.statSync(origFilePath);
 
