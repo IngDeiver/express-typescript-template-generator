@@ -44,7 +44,7 @@ cd <project-name>
 npm run tsc
 npm run dev
 ```
-> Open the browser in: http://localhost:3000/api/example.
+> Open the browser in: http://localhost:3000/api/user.
 
 ## Production usage
 
