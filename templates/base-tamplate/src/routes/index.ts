@@ -1,9 +1,9 @@
 import { Router } from 'express';
-import exampleRouter from './example.route';
+import UserRouter from './user.route';
 
 const router = Router();
 const prefix: string = '/api';
 
-router.use(`${prefix}/example`, exampleRouter);
+router.use(`${prefix}/user`, UserRouter);
 
 export default router;

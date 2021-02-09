@@ -2,18 +2,19 @@ import {
   NextFunction, Request, Response, Router,
 } from 'express';
 import { IRoute } from '../interfaces';
-import { ResourceExampleControler } from '../controller';
+import { UserControler } from '../controller';
 import { isDefinedParamMiddleware, validationMiddleware } from '../middlewares';
-import { ExampleDTO } from '../dtos';
+import { UserDTO } from '../dtos';
+
 
 /**
  *
- * Managament the routes of resource
+ * Managament the routes of user
  * @category Routes
- * @class ExampleRouter
+ * @class UserRouter
  * @implements {IRoute}
  */
-class ExampleRouter implements IRoute {
+class UserRouter implements IRoute {
   public router = Router();
 
   public pathIdParam = '/:id';
@@ -23,33 +24,42 @@ class ExampleRouter implements IRoute {
   }
 
   createRoutes(): void {
+
+    // get user by Id
     this.router.get(
       this.pathIdParam,
       isDefinedParamMiddleware(),
-      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+      (req: Request, res: Response, next: NextFunction) => UserControler
         .getById(req, res, next),
     );
-    this.router.get('/', (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+
+    // list users
+    this.router.get('/', (req: Request, res: Response, next: NextFunction) => UserControler
       .list(req, res, next));
-    this.router.post(
-      '/',
-      validationMiddleware(ExampleDTO),
-      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+
+    // Save user
+    this.router.post('/',
+      validationMiddleware(UserDTO),
+      (req: Request, res: Response, next: NextFunction) => UserControler
         .create(req, res, next),
     );
+
+    // Update user
     this.router.put(
       this.pathIdParam,
       isDefinedParamMiddleware(),
-      validationMiddleware(ExampleDTO, true),
-      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+      validationMiddleware(UserDTO, true),
+      (req: Request, res: Response, next: NextFunction) => UserControler
         .updateById(req, res, next),
     );
+
+    // Remove user
     this.router.delete(
       this.pathIdParam,
       isDefinedParamMiddleware(),
-      (req: Request, res: Response, next: NextFunction) => ResourceExampleControler
+      (req: Request, res: Response, next: NextFunction) => UserControler
         .removeById(req, res, next),
     );
   }
 }
-export default new ExampleRouter().router;
+export default new UserRouter().router;
