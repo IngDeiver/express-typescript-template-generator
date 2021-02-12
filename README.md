@@ -21,6 +21,7 @@ Base express.js template with TypeScript and  best practices ready for start to 
 - Testing with jest
 - Pretty logs with winston
 - Pretty routes pattern
+
 ## Dependencies
 > You need have next as global dependecies
 - Typescript
