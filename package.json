@@ -17,7 +17,7 @@
     "typescript"
   ],
   "author": "Deiver Carrascal",
-  "license": "ISC",
+  "license": "MIT",
   "bugs": {
     "url": "https://github.com/IngDeiver/express-typescript-template-generator/issues"
   },

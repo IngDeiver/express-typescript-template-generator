@@ -45,10 +45,17 @@ const QUESTIONS = [
     default: "Without description",
     message: "Write a description"
   },
+  {
+    name: "project-license",
+    type: "input",
+    default: "ISC",
+    message: "Write a license name:",
+  },
 ];
 
 var author = ""
 var projectDescription = ""
+var license = ""
 
 function createProjectDirectory(projectPath) {
   if (fs.existsSync(projectPath)) {
@@ -83,7 +90,7 @@ function createDirectoryContents(templatePath, projectName) {
         
         // If the file is package.json apply the dinamyc properties
         if(file.includes("package.json")) contents = template.render(contents, 
-          { projectName, author, projectDescription});
+          { projectName, author, projectDescription, license});
 
         // Rename
         if (file === ".npmignore") file = ".gitignore";
@@ -125,6 +132,7 @@ inquirer
     const projectName = answers["project-name"].trim();
     author = answers["project-author"];
     projectDescription = answers["project-description"];
+    license  = answers["project-license"];
 
     const templatePath = path.join(__dirname, "templates", templateChoice);
     const tartgetPath = path.join(CURRENT_DIR, projectName);
