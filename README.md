@@ -3,6 +3,13 @@
   <a href="#" target="_blank">
     <img alt="License: MIT" src="https://img.shields.io/badge/License-MIT-yellow.svg" />
   </a>
+   <a href="#" target="_blank">
+    <img alt="Build" src="https://img.shields.io/travis/IngDeiver/express-typescript-template-generator" />
+  </a>
+   <a href="#" target="_blank">
+    <img alt="Downloads" src="https://img.shields.io/jsdelivr/npm/hw/express-typescript-template-generator" />
+  </a>
+  
 </p>
 
 Base express.js template with TypeScript and  best practices ready for start to coding.
