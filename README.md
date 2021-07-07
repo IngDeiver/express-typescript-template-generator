@@ -15,7 +15,7 @@
 Base express.js template with TypeScript and  best practices ready for start to coding.
 
 ## Feactures 
-- Selector de funciones a utilizar
+- Selector of features to use
 - Typescript
 - Dodumentation with jsdoc (available in jsdoc/docs/index.html)
 - Commits convections
