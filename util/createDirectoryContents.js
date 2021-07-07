@@ -22,6 +22,7 @@ module.exports = function createDirectoryContents(
       ".env.dev",
       "README.md",
       ".git",
+      "gitignorefile"
     ];
     
     // get stats about the current file
