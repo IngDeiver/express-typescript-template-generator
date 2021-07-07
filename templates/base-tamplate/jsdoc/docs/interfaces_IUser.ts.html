@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation interfaces/IUser.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,34 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>interfaces/IUser.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { Document } from 'mongoose';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
-
-        
-
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+/**
+ * Define a user interface to managament with mongoose
+ * @category Interfaces
+ * @interface   IUser
+ * @extends {Document}
+ */
+interface   IUser extends Document{
+    username: String,
+    email: String,
+    password: String,
+    verifyPassword: Function
+}
+export default  IUser;
+</code></pre>
+        </article>
+    </section>
 
 
 

@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation dtos/UserDTO.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,60 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>dtos/UserDTO.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-empty-function */
+/* eslint-disable no-unused-vars */
+/* eslint-disable no-useless-constructor */
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
+import { IsString, IsNotEmpty, IsEmail } from 'class-validator';
 
-        
+/**
+ *
+ * DTO for user 
+ * @category DTOs
+ * @class UserDTO
+ * @param {string} username - A username 
+ */
+class UserDTO {
+    @IsNotEmpty()
+    @IsString()
+    public username: string;
 
+    @IsNotEmpty()
+    @IsEmail()
+    public email: string
 
-<dl class="details">
+    @IsNotEmpty()
+    @IsString()
+    public password: string
 
-    
+    /**
+   * Creates an instance of UserDTO.
+   * @param {string} username - the name user
+   * @param {string} email - the email user
+   * @param {string} password - the password user
+   * @memberof UserDTO
+   */
+    constructor(username: string, email: string, password: string) {
+      this.username = username;
+      this.email = email;
+      this.password = password;
+    }
+}
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+export default UserDTO;
+</code></pre>
+        </article>
+    </section>
 
 
 

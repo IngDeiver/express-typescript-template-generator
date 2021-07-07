@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation services/UserService.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,154 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>services/UserService.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable class-methods-use-this */
+import { ICrud, IUser} from '../interfaces';
+import { UserRepository } from '../repository';
+import { User} from '../models';
+import { UserDTO } from 'dtos';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
+/**
+ *
+ * The user service,layer of repository pattern
+ * @category Services
+ * @class UserService
+ * @implements {ICrud&lt;IUser, string>}
+ */
+class UserService implements ICrud&lt;IUser, string> {
+  /**
+   *
+   * Create a user
+   * @param {IUser} user - The user to create
+   * @return {Promise&lt;IUser>}  A user created
+   * @memberof UserService
+   */
+  async create(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>((resolve, reject) => {
+      UserRepository.create(user)
+      .then((user: IUser) => resolve(user))
+      .catch(err => reject(err))
+    })
+  }
 
-        
+  /**
+   *
+   * List all users
+   * @return {Promise&lt;Array&lt;IUser>>}  A list of tasks
+   * @memberof UserService
+   */
+  async list(): Promise&lt;Array&lt;IUser>> {
+    return new Promise&lt;Array&lt;IUser>>((resolve, reject) => {
+      UserRepository.list()
+        .then((user: Array&lt;IUser>) => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
 
+  /**
+   *
+   * Find by id a user
+   * @param {string} id - The id to find
+   * @return {Promise&lt;IUser>}  A user
+   * @memberof UserService
+   */
+  async getById(id: string): Promise&lt;IUser| null> {
+    return new Promise&lt;IUser | null>((resolve, reject) => {
+      UserRepository.getById(id)
+        .then((user: IUser | null) => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
 
-<dl class="details">
+  /**
+   *
+   * Remove a user
+   * @param {IUser} user - The user to remove
+   * @return {Promise&lt;IUser>}  A user removed
+   * @memberof UserService
+   */
+  async remove(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await UserRepository.remove(user);
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 
-    
+  /**
+   *
+   * Remove by id a user
+   * @param {string} id - The id to find
+   * @return {Promise&lt;IUser>}  A user removed
+   * @memberof UserService
+   */
+  async removeById(id: string): Promise&lt;IUser| null> {
+    return new Promise&lt;IUser | null>(async (resolve, reject) => {
+      try {
+        const userToDelete: IUser | null = await UserRepository.removeById(id)
+        if (userToDelete) await userToDelete.remove();
+        resolve(userToDelete)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 
-    
+  /**
+   *
+   * Update a user
+   * @param {IUser} user - The user to updated
+   * @return {Promise&lt;IUser>}  A user updated
+   * @memberof UserService
+   */
+  async update(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await UserRepository.update(user)
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    });
+  }
 
-    
+  /**
+   *
+   * Update by id a user
+   * @param {string} id - The id to find
+   * @param {IUser} user - The user to updated
+   * @return {Promise&lt;IUser>} A user updated
+   * @memberof UserService
+   */
+  async updateById(id: string, user: UserDTO): Promise&lt;IUser| null > {
+    // eslint-disable-next-line no-unused-vars
+    return new Promise&lt;IUser | null>(async (resolve, reject) => {
+      try {
+        const userToUpdate = await UserRepository.updateById(id, user)
+        resolve(userToUpdate)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+}
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+export default new UserService();
+</code></pre>
+        </article>
+    </section>
 
 
 

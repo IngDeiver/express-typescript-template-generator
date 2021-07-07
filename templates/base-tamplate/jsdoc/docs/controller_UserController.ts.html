@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation controller/UserController.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,146 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>controller/UserController.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
+import { NextFunction, Response, Request } from 'express';
+import { IUser } from '../interfaces';
+import { User } from '../models';
+import { HttpException } from '../exceptions';
+import { UserService } from '../services';
+import bcrypt from 'bcrypt'
+/**
+ *
+ * The user controller
+ * @category Controllers
+ * @class UserController
+ */
+class UserController {
+  /**
+   *
+   * List all users
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of users
+   * @memberof UserController
+   */
+  public static async list(req: Request, res: Response, next: NextFunction) {
+    try {
+      const users: Array&lt;IUser> = await UserService.list();
+      res.json(users);
+    } catch (error) {
+      return next(new HttpException(error.status || 500, error.message));
+    }
+  }
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
+  /**
+   *
+   * create a new user
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A user creted
+   * @memberof UserController
+   */
+  public static async create(req: Request, res: Response, next: NextFunction) {
+    try {
+      let { username, email, password } = req.body;
 
-        
+      // Encrypt password
+      password = bcrypt.hashSync(password, 10)
 
+      const user:IUser = new User({ username, email, password });
+      const userSaved: IUser = await UserService.create(user);
+      res.json(userSaved);
+    } catch (error) {
+      return next(new HttpException(error.status || 500, error.message));
+    }
+  }
 
-<dl class="details">
+  /**
+   *
+   * Get user by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of users
+   * @memberof UserController
+   */
+  public static async getById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const user: IUser | null = await UserService.getById(id);
+      if (!user) throw new HttpException(404, 'User not found');
+      res.json(user);
+    } catch (error) {
+      return next(new HttpException(error.status || 500, error.message));
+    }
+  }
 
-    
+  /**
+   *
+   * Remove user by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of userS
+   * @memberof UserController
+   */
+  public static async removeById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const user: IUser | null = await UserService
+        .removeById(id);
+      if (!user) throw new HttpException(404, 'User not found');
+      res.json(user);
+    } catch (error) {
+      return next(new HttpException(error.status || 500, error.message));
+    }
+  }
 
-    
+  /**
+   *
+   * Update user by id
+   * @static
+   * @param {Request} req - The request
+   * @param {Response} res - The response
+   * @param {NextFunction} next - The next middleware in queue
+   * @return {JSON} - A list of userS
+   * @memberof UserController
+   */
+  public static async updateById(req: Request, res: Response, next: NextFunction) {
+    try {
+      const { id } = req.params;
+      const { username, email, password } = req.body;
+      const userUpdated: IUser | null = await UserService
+        .updateById(id, { username, email, password});
+      if (!userUpdated) throw new HttpException(404, 'User not found');
+      res.json(userUpdated);
+    } catch (error) {
+      return next(new HttpException(error.status || 500, error.message));
+    }
+  }
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+}
+export default UserController;
+</code></pre>
+        </article>
+    </section>
 
 
 

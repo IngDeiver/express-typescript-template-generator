@@ -85,7 +85,7 @@
             
             <nav>
                 
-                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="ExampleDTO.ExampleDTO.html">ExampleDTO</a></li><li><a href="HttpException.HttpException.html">HttpException</a></li><li><a href="Server.html">Server</a></li><li><a href="Server.Server.html">Server</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Classes</h3><ul><li><a href="ResourceExampleController.html">ResourceExampleController</a></li></ul></div><div class="category"><h2>DTOs</h2><h3>Classes</h3><ul><li><a href="ExampleDTO.html">ExampleDTO</a></li></ul></div><div class="category"><h2>Exceptions</h2><h3>Classes</h3><ul><li><a href="HttpException.html">HttpException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#errorHandler">errorHandler</a></li></ul></div><div class="category"><h2>Interfaces</h2><h3>Interfaces</h3><ul><li><a href="ICrud.html">ICrud</a></li><li><a href="IResourceExample.html">IResourceExample</a></li><li><a href="IRoute.html">IRoute</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Global</h3><ul><li><a href="global.html#isDefinedParam">isDefinedParam</a></li><li><a href="global.html#validationMiddleware">validationMiddleware</a></li></ul></div><div class="category"><h2>Repositorys</h2><h3>Classes</h3><ul><li><a href="ResourceRepository.html">ResourceRepository</a></li></ul></div><div class="category"><h2>Routes</h2><h3>Classes</h3><ul><li><a href="ExampleRouter.html">ExampleRouter</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="ResourceService.html">ResourceService</a></li></ul></div>
+                    <h2><a href="index.html">Documentation</a></h2><div class="category"><h3>Classes</h3><ul><li><a href="Database.html">Database</a></li><li><a href="HttpException.HttpException.html">HttpException</a></li><li><a href="Server.html">Server</a></li><li><a href="Server.Server.html">Server</a></li><li><a href="UserDTO.UserDTO.html">UserDTO</a></li></ul></div><div class="category"><h2>Controllers</h2><h3>Classes</h3><ul><li><a href="UserController.html">UserController</a></li></ul></div><div class="category"><h2>DTOs</h2><h3>Classes</h3><ul><li><a href="UserDTO.html">UserDTO</a></li></ul></div><div class="category"><h2>Exceptions</h2><h3>Classes</h3><ul><li><a href="HttpException.html">HttpException</a></li></ul><h3>Global</h3><ul><li><a href="global.html#errorHandler">errorHandler</a></li></ul></div><div class="category"><h2>Interfaces</h2><h3>Interfaces</h3><ul><li><a href="ICrud.html">ICrud</a></li><li><a href="IRoute.html">IRoute</a></li><li><a href="IUser.html">IUser</a></li></ul></div><div class="category"><h2>Middlewares</h2><h3>Global</h3><ul><li><a href="global.html#isDefinedParam">isDefinedParam</a></li><li><a href="global.html#validationMiddleware">validationMiddleware</a></li></ul></div><div class="category"><h2>Repositorys</h2><h3>Classes</h3><ul><li><a href="UserRepository.html">UserRepository</a></li></ul></div><div class="category"><h2>Routes</h2><h3>Classes</h3><ul><li><a href="UserRouter.html">UserRouter</a></li></ul></div><div class="category"><h2>Services</h2><h3>Classes</h3><ul><li><a href="UserService.html">UserService</a></li></ul></div>
                 
             </nav>
         </div>
@@ -133,7 +133,9 @@ const validationMiddleware = (
     if (errors.length > 0) {
       const message = errors
         .map((error: ValidationError) => {
-          if (error.constraints) return error.constraints.value;
+          if (error.constraints) {
+             return Object.values(error.constraints)
+          };
           return `${error.property}: validation error`;
         })
         .join(', ');

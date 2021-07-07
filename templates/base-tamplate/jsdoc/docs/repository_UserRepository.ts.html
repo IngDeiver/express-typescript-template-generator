@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation repository/UserRepository.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,154 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>repository/UserRepository.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>/* eslint-disable no-underscore-dangle */
+/* eslint-disable no-unused-vars */
+/* eslint-disable class-methods-use-this */
+import { UserDTO } from 'dtos';
+import { ICrud, IUser } from '../interfaces';
+import { User } from '../models';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
+/**
+ *
+ * The user repository 
+ * @category Repositorys
+ * @class UserRepository
+ * @implements {ICrud&lt;IUser, string>}
+ */
+class UserRepository implements ICrud&lt;IUser, string> {
+  /**
+   *
+   *
+   * @param {IUser} user - The user to create
+   * @return {Promise&lt;IUser>}  A user created
+   * @memberof UserRepository
+   */
+  create(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>((resolve, reject) => {
+      user.save()
+        .then((user: IUser) => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
 
-        
+  /**
+   *
+   *
+   * @return {Promise&lt;Array&lt;IUser>>}  A list of users
+   * @memberof UserRepository
+   */
+  list(): Promise&lt;Array&lt;IUser>> {
+    return new Promise&lt;Array&lt;IUser>>((resolve, reject) => {
+      User.find({})
+        .then((user: Array&lt;IUser>) => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
 
+  /**
+   *
+   *
+   * @param {string} id - The id to find
+   * @return {Promise&lt;IUser>}  A User
+   * @memberof UserRepository
+   */
+  getById(id: string): Promise&lt;IUser | null> {
+    return new Promise&lt;IUser | null>((resolve, reject) => {
+      User.findById(id)
+        .then((user: IUser | null) => resolve(user))
+        .catch(err => reject(err))
+    })
+  }
 
-<dl class="details">
+  /**
+   *
+   *
+   * @param {IUser} user - The user to remove
+   * @return {Promise&lt;IUser>}  A user removed
+   * @memberof UserRepository
+   */
+  remove(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await user.remove();
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 
-    
+  /**
+   *
+   *
+   * @param {string} id - The id to find
+   * @return {Promise&lt;IUser>}  A user removed
+   * @memberof UserRepository
+   */
+  removeById(id: string): Promise&lt;IUser | null> {
+    return new Promise&lt;IUser | null>(async (resolve, reject) => {
+      try {
+        const userToDelete: IUser | null = await User.findByIdAndRemove(id)
+        if (userToDelete) await userToDelete.remove();
+        resolve(userToDelete)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
 
-    
+  /**
+   *
+   *
+   * @param {IUser} user - The user to updated
+   * @return {Promise&lt;IUser>}  A user updated
+   * @memberof UserRepository
+   */
+  async update(user: IUser): Promise&lt;IUser> {
+    return new Promise&lt;IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await user.update();
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    });
+  }
 
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  /**
+   *
+   *
+   * @param {string} id - The id to find
+   * @param {IUser} user - The user to updated
+   * @return {Promise&lt;IUser>} A user updated
+   * @memberof UserRepository
+   */
+  async updateById(id: string, user: UserDTO):
+    Promise&lt;IUser | null> {
+    return new Promise&lt;IUser | null>(async (resolve, reject) => {
+      try {
+        const userToUpdate = await User.findByIdAndUpdate(id, user, { new: true})
+        resolve(userToUpdate)
+      } catch (error) {
+        reject(error)
+      }
+    })
+  }
+}
+export default new UserRepository();
+</code></pre>
+        </article>
+    </section>
 
 
 

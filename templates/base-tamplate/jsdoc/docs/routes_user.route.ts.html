@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation routes/user.route.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,84 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>routes/user.route.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
-
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
-
-        
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import {
+  NextFunction, Request, Response, Router,
+} from 'express';
+import { IRoute } from '../interfaces';
+import { UserControler } from '../controller';
+import { isRequiredParamMiddleware, validationMiddleware } from '../middlewares';
+import { UserDTO } from '../dtos';
 
 
-<dl class="details">
+/**
+ *
+ * Managament the routes of user
+ * @category Routes
+ * @class UserRouter
+ * @implements {IRoute}
+ */
+class UserRouter implements IRoute {
+  public router = Router();
 
-    
+  public pathIdParam = '/:id';
 
-    
+  constructor() {
+    this.createRoutes();
+  }
 
-    
+  createRoutes(): void {
 
-    
+    // get user by Id
+    this.router.get(
+      this.pathIdParam,
+      isRequiredParamMiddleware(),
+      (req: Request, res: Response, next: NextFunction) => UserControler
+        .getById(req, res, next),
+    );
 
-    
+    // list users
+    this.router.get('/', (req: Request, res: Response, next: NextFunction) => UserControler
+      .list(req, res, next));
 
-    
+    // Save user
+    this.router.post('/',
+      validationMiddleware(UserDTO),
+      (req: Request, res: Response, next: NextFunction) => UserControler
+        .create(req, res, next),
+    );
 
-    
+    // Update user
+    this.router.put(
+      this.pathIdParam,
+      isRequiredParamMiddleware(),
+      validationMiddleware(UserDTO, true),
+      (req: Request, res: Response, next: NextFunction) => UserControler
+        .updateById(req, res, next),
+    );
 
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+    // Remove user
+    this.router.delete(
+      this.pathIdParam,
+      isRequiredParamMiddleware(),
+      (req: Request, res: Response, next: NextFunction) => UserControler
+        .removeById(req, res, next),
+    );
+  }
+}
+export default new UserRouter().router;
+</code></pre>
+        </article>
+    </section>
 
 
 

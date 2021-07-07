@@ -1,3 +1,5 @@
+
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -5,7 +7,7 @@
   tracking-code-which-will-go-to-the-HEAD
   <meta charset="utf-8">
   <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>Documentation IRoute</title>
+  <title>Documentation middlewares/isRequiredParamMiddleware.ts</title>
 
   <script src="https://cdn.jsdelivr.net/gh/google/code-prettify@master/loader/run_prettify.js"></script>
   <script src="https://unpkg.com/@babel/standalone/babel.min.js"></script>
@@ -90,101 +92,54 @@
         <div class="core" id="main-content-wrapper">
             <div class="content">
                 <header class="page-title">
-                    <p>Interface</p>
-                    <h1>IRoute</h1>
+                    <p>Source</p>
+                    <h1>middlewares/isRequiredParamMiddleware.ts</h1>
                 </header>
                 
 
 
 
-
-<section>
-
-<header>
     
-        <h2>IRoute</h2>
-        
-    
-</header>
+    <section>
+        <article>
+            <pre class="prettyprint source linenums"><code>import { isNotEmpty } from 'class-validator';
+import {
+  NextFunction, RequestHandler, Request, Response,
+} from 'express';
+import { HttpException } from '../exceptions';
 
-<article>
-    <div class="container-overview">
-    
-        
-            <div class="description">Define the atributes of routes</div>
-        
+const { ObjectId } = require('mongoose').Types;
 
-        
+/**
+ *
+ * Valid a value if is defined into req (body or params), default valid id from url and valid _id of mongodb
+ * @category Middlewares
+ * @param {any} value - the value to validate
+ * @return {RequestHandler}  {RequestHandler}
+ */
+const isDefinedParam = (
+  value: 'params' | 'body' = 'params',
+  param: string = 'id',
+  validateMongoId: boolean = true,
+): RequestHandler => (req: Request, res: Response, next: NextFunction) => {
+  const paramValue = req[value][param];
+  const exist: boolean = isNotEmpty(paramValue);
+  let isMongoId: boolean = false;
 
-
-<dl class="details">
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-    
-
-    
-
-    
-
-    
-        <p class="tag-source">
-            <a href="interfaces_IRoute.ts.html" class="button">View Source</a>
-            <span>
-                <a href="interfaces_IRoute.ts.html">interfaces/IRoute.ts</a>, <a href="interfaces_IRoute.ts.html#line4">line 4</a>
-            </span>
-        </p>
-    
-</dl>
-
-
-        
-    
-    </div>
-    
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-
-    
-</article>
-
-</section>
+  if (validateMongoId) {
+    isMongoId = ObjectId.isValid(paramValue);
+    if (!exist || !isMongoId) {
+      return next(
+        new HttpException(400, `${param} is required and shoul be ObjectId`),
+      );
+    }
+  } else if (!exist) return next(new HttpException(400, `${param} is required`));
+  next();
+};
+export default isDefinedParam;
+</code></pre>
+        </article>
+    </section>
 
 
 
