@@ -1,5 +1,7 @@
 node_modules
 .env
 .env.dev
-templates/base-templates/.env.dev
-templates/base-templates/.env
+templates/base-template/.env.dev
+templates/base-template/.env
+templates/base-template/dist
+templates/base-template/node_modules
