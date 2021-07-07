@@ -29,17 +29,66 @@ Base express.js template with TypeScript and  best practices ready for start to 
 - Pretty logs with winston
 - Pretty routes pattern
 
+## Project structure
+```
+📦src # Main folder of code
+ ┣ 📂config
+ ┃ ┣ 📜database.ts
+ ┃ ┣ 📜dotenv.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂controller
+ ┃ ┣ 📜UserController.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂dtos
+ ┃ ┣ 📜UserDTO.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂exceptions
+ ┃ ┣ 📜errorHandler.ts
+ ┃ ┣ 📜httpException.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂interfaces
+ ┃ ┣ 📜ICrud.ts
+ ┃ ┣ 📜IRoute.ts
+ ┃ ┣ 📜IUser.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂middlewares
+ ┃ ┣ 📜index.ts
+ ┃ ┣ 📜isRequiredParamMiddleware.ts
+ ┃ ┗ 📜validationMiddleware.ts
+ ┣ 📂models
+ ┃ ┣ 📜User.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂repository
+ ┃ ┣ 📜UserRepository.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂routes
+ ┃ ┣ 📜index.ts
+ ┃ ┗ 📜user.route.ts
+ ┣ 📂server
+ ┃ ┗ 📜Server.ts
+ ┣ 📂services
+ ┃ ┣ 📜UserService.ts
+ ┃ ┗ 📜index.ts
+ ┣ 📂types
+ ┃ ┗ 📜index.ts
+ ┣ 📂utils
+ ┃ ┣ 📜index.ts
+ ┃ ┗ 📜logger.ts
+ ┣ 📜app.ts
+ ┗ 📜setupTests.ts
+```
+
 ## Installation
 ```sh
-npm i -g express-typescript-template-generator
+$ npm i -g express-typescript-template-generator
 ```
 
 ## Use
 ```sh
-express-typescript-template-generator
+$ express-typescript-template-generator
 ```
 ```sh
-cd <project-name>
+$ cd <project-name>
 ```
 > Configure your .env file with the necessary environment variables.
 > Create the .env and .env.dev files at the root of the project with:
@@ -48,34 +97,34 @@ cd <project-name>
 ## Development usage
 
 ```sh
-npm run tsc
-npm run dev
+$ npm run tsc
+$ npm run dev
 ```
 > Open the browser in: http://localhost:3000/api/user.
 
 ## Production usage
 
 ```sh
-npm start
+$ npm start
 ```
 
 ## Run tests
 
 ```sh
-npm run test
+$ npm run test
 ```
 
 ## Create documentation
 
 ```sh
-npm run jsdoc
+$ npm run jsdoc
 ```
 
 ## Eslint
 
 ```sh
-npm run lint
-npm run lint:fix
+$ npm run lint
+$ npm run lint:fix
 ```
 
 ## Author
