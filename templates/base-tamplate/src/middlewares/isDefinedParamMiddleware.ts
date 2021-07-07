@@ -19,17 +19,17 @@ const isDefinedParam = (
   validateMongoId: boolean = true,
 ): RequestHandler => (req: Request, res: Response, next: NextFunction) => {
   const paramValue = req[value][param];
-  const exist: boolean = isNotEmpty(req[value][param]);
+  const exist: boolean = isNotEmpty(paramValue);
   let isMongoId: boolean = false;
 
   if (validateMongoId) {
     isMongoId = ObjectId.isValid(paramValue);
     if (!exist || !isMongoId) {
       return next(
-        new HttpException(400, `${value} is required and shoul be ObjectId`),
+        new HttpException(400, `${param} is required and shoul be ObjectId`),
       );
     }
-  } else if (!exist) return next(new HttpException(400, `${value} is required`));
+  } else if (!exist) return next(new HttpException(400, `${param} is required`));
   next();
 };
 export default isDefinedParam;

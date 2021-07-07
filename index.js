@@ -76,7 +76,7 @@ function createDirectoryContents(templatePath, projectName) {
   filesToCreate.forEach((file) => {
     const origFilePath = path.join(templatePath, file);
     const writePath = `${basePatch}/${file}`;
-    const SKIP_FILES = ['node_modules', '.env', '.env.dev', 'README.md'];
+    const SKIP_FILES = ['node_modules', '.env', '.env.dev', 'README.md', '.git'];
     // get stats about the current file
     const stats = fs.statSync(origFilePath);
 
@@ -92,8 +92,6 @@ function createDirectoryContents(templatePath, projectName) {
         if(file.includes("package.json")) contents = template.render(contents, 
           { projectName, author, projectDescription, license});
 
-        // Rename
-        if (file === ".npmignore") file = ".gitignore";
         fs.writeFileSync(writePath, contents, "utf8");
       } else if (stats.isDirectory()) {
         fs.mkdirSync(`${writePath}`);
@@ -142,6 +140,19 @@ inquirer
     }
 
     createDirectoryContents(templatePath, projectName);
+
+    // create .gitignore file
+    const basePatch = path.join(CURRENT_DIR, projectName);
+    const writePath = `${basePatch}/.gitignore`;
+    const gitContent = `node_modules
+dist
+.env
+.env.dev
+
+# docs
+jsdoc/docs
+`
+    fs.writeFileSync(writePath, gitContent, 'utf8')
     console.log("Instalalling dependencies...");
 
     exec(`cd ${tartgetPath} && git init && npm install`, (error, stdout, stderr) => {

@@ -29,12 +29,6 @@ Base express.js template with TypeScript and  best practices ready for start to 
 - Pretty logs with winston
 - Pretty routes pattern
 
-## Dependencies
-> You need have next as global dependecies
-- Typescript
-- Cross-env
-- Nodemon 
-
 ## Installation
 ```sh
 npm i -g express-typescript-template-generator
