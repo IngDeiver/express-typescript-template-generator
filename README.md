@@ -21,7 +21,7 @@ Base express.js template with TypeScript and  best practices ready for start to 
 - Eslint
 - Repository pattern
 - DTO pattern
-- Validation request data with middlwares
+- Validation request data with middlewares
 - Global error handler
 - Mogoose config
 - Dotenv config
