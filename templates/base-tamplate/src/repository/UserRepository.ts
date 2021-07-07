@@ -20,7 +20,11 @@ class UserRepository implements ICrud<IUser, string> {
    * @memberof UserRepository
    */
   async create(user: IUser): Promise<IUser> {
-    return user.save();
+    return new Promise<IUser>((resolve, reject) => {
+      user.save()
+      .then((user: IUser) => resolve(user))
+      .catch(err => reject(err))
+    })
   }
 
   /**

@@ -29,7 +29,11 @@ const validationMiddleware = (
     if (errors.length > 0) {
       const message = errors
         .map((error: ValidationError) => {
-          if (error.constraints) return error.constraints.value;
+          console.log(error);
+          
+          if (error.constraints) {
+             return Object.values(error.constraints)
+          };
           return `${error.property}: validation error`;
         })
         .join(', ');

@@ -8,7 +8,7 @@ const { ObjectId } = require('mongoose').Types;
 
 /**
  *
- * Valid a value if is defined (is required), default valid id from url and valid _id of mongodb
+ * Valid a value if is defined into req (body or params), default valid id from url and valid _id of mongodb
  * @category Middlewares
  * @param {any} value - the value to validate
  * @return {RequestHandler}  {RequestHandler}

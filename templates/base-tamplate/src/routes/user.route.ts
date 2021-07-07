@@ -3,7 +3,7 @@ import {
 } from 'express';
 import { IRoute } from '../interfaces';
 import { UserControler } from '../controller';
-import { isDefinedParamMiddleware, validationMiddleware } from '../middlewares';
+import { isRequiredParamMiddleware, validationMiddleware } from '../middlewares';
 import { UserDTO } from '../dtos';
 
 
@@ -28,7 +28,7 @@ class UserRouter implements IRoute {
     // get user by Id
     this.router.get(
       this.pathIdParam,
-      isDefinedParamMiddleware(),
+      isRequiredParamMiddleware(),
       (req: Request, res: Response, next: NextFunction) => UserControler
         .getById(req, res, next),
     );
@@ -47,7 +47,7 @@ class UserRouter implements IRoute {
     // Update user
     this.router.put(
       this.pathIdParam,
-      isDefinedParamMiddleware(),
+      isRequiredParamMiddleware(),
       validationMiddleware(UserDTO, true),
       (req: Request, res: Response, next: NextFunction) => UserControler
         .updateById(req, res, next),
@@ -56,7 +56,7 @@ class UserRouter implements IRoute {
     // Remove user
     this.router.delete(
       this.pathIdParam,
-      isDefinedParamMiddleware(),
+      isRequiredParamMiddleware(),
       (req: Request, res: Response, next: NextFunction) => UserControler
         .removeById(req, res, next),
     );

@@ -19,7 +19,11 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async create(user: IUser): Promise<IUser> {
-    return UserRepository.create(user);
+    return new Promise<IUser>((resolve, reject) => {
+      UserRepository.create(user)
+      .then((user: IUser) => resolve(user))
+      .catch(err => reject(err))
+    })
   }
 
   /**
