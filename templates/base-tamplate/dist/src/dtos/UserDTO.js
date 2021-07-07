@@ -39,6 +39,7 @@ var UserDTO = /** @class */ (function () {
         class_validator_1.IsEmail()
     ], UserDTO.prototype, "email");
     __decorate([
+        class_validator_1.IsNotEmpty(),
         class_validator_1.IsString()
     ], UserDTO.prototype, "password");
     return UserDTO;

@@ -20,6 +20,7 @@ class UserDTO {
     @IsEmail()
     public email: string
 
+    @IsNotEmpty()
     @IsString()
     public password: string
 
