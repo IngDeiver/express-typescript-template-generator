@@ -1,2 +1,5 @@
 node_modules
-.env.*
+.env
+.env.dev
+templates/base-templates/.env.dev
+templates/base-templates/.env

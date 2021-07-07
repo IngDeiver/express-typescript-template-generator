@@ -21,8 +21,8 @@ Base express.js template with TypeScript and  best practices ready for start to 
 - Eslint
 - Repository pattern
 - DTO pattern
-- Validation middlwares
-- Error handler
+- Validation request data with middlwares
+- Global error handler
 - Mogoose config
 - Dotenv config
 - Testing with jest
@@ -32,50 +32,20 @@ Base express.js template with TypeScript and  best practices ready for start to 
 ## Project structure
 ```
 📦src # Main folder of code
- ┣ 📂config
- ┃ ┣ 📜database.ts
- ┃ ┣ 📜dotenv.ts
- ┃ ┗ 📜index.ts
- ┣ 📂controller
- ┃ ┣ 📜UserController.ts
- ┃ ┗ 📜index.ts
- ┣ 📂dtos
- ┃ ┣ 📜UserDTO.ts
- ┃ ┗ 📜index.ts
- ┣ 📂exceptions
- ┃ ┣ 📜errorHandler.ts
- ┃ ┣ 📜httpException.ts
- ┃ ┗ 📜index.ts
- ┣ 📂interfaces
- ┃ ┣ 📜ICrud.ts
- ┃ ┣ 📜IRoute.ts
- ┃ ┣ 📜IUser.ts
- ┃ ┗ 📜index.ts
- ┣ 📂middlewares
- ┃ ┣ 📜index.ts
- ┃ ┣ 📜isRequiredParamMiddleware.ts
- ┃ ┗ 📜validationMiddleware.ts
- ┣ 📂models
- ┃ ┣ 📜User.ts
- ┃ ┗ 📜index.ts
- ┣ 📂repository
- ┃ ┣ 📜UserRepository.ts
- ┃ ┗ 📜index.ts
- ┣ 📂routes
- ┃ ┣ 📜index.ts
- ┃ ┗ 📜user.route.ts
- ┣ 📂server
- ┃ ┗ 📜Server.ts
- ┣ 📂services
- ┃ ┣ 📜UserService.ts
- ┃ ┗ 📜index.ts
- ┣ 📂types
- ┃ ┗ 📜index.ts
- ┣ 📂utils
- ┃ ┣ 📜index.ts
- ┃ ┗ 📜logger.ts
- ┣ 📜app.ts
- ┗ 📜setupTests.ts
+ ┣ 📂config # Folder for  app config, here there is files like dotenv config ig 
+ ┣ 📂controller # Folder for handlers functions called from routes
+ ┣ 📂dtos # DTO pattern for handle data of models
+ ┣ 📂exceptions # Global handle error and custom exceptions
+ ┣ 📂interfaces # Interfaces for greater abstraction
+ ┣ 📂middlewares # Folder for express middlewares
+ ┣ 📂models # Schemas of mongodb for handle data
+ ┣ 📂repository # Pattern repository for disengage database engine
+ ┣ 📂routes # Express routes for slices
+ ┣ 📂server # Express server instance
+ ┣ 📂services # Services for write core code bussiness
+ ┣ 📂utils # Utils for usage in the application like logger utils
+ ┣ 📜app.ts # Main file of project
+ ┗ 📜setupTests.ts # Config for testing with jest
 ```
 
 ## Installation
