@@ -55,13 +55,9 @@ var UserRepository = /** @class */ (function () {
      * @memberof UserRepository
      */
     UserRepository.prototype.create = function (user) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, new Promise(function (resolve, reject) {
-                        user.save()
-                            .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
-                    })];
-            });
+        return new Promise(function (resolve, reject) {
+            user.save()
+                .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
         });
     };
     /**
@@ -71,10 +67,9 @@ var UserRepository = /** @class */ (function () {
      * @memberof UserRepository
      */
     UserRepository.prototype.list = function () {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, models_1.User.find({})];
-            });
+        return new Promise(function (resolve, reject) {
+            models_1.User.find({})
+                .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
         });
     };
     /**
@@ -85,10 +80,9 @@ var UserRepository = /** @class */ (function () {
      * @memberof UserRepository
      */
     UserRepository.prototype.getById = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            return __generator(this, function (_a) {
-                return [2 /*return*/, models_1.User.findById(id)];
-            });
+        return new Promise(function (resolve, reject) {
+            models_1.User.findById(id)
+                .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
         });
     };
     /**
@@ -99,19 +93,29 @@ var UserRepository = /** @class */ (function () {
      * @memberof UserRepository
      */
     UserRepository.prototype.remove = function (user) {
-        return __awaiter(this, void 0, void 0, function () {
+        var _this = this;
+        return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var error_1;
             return __generator(this, function (_a) {
                 switch (_a.label) {
                     case 0:
+                        _a.trys.push([0, 3, , 4]);
                         if (!user._id) return [3 /*break*/, 2];
                         return [4 /*yield*/, user.remove()];
                     case 1:
                         _a.sent();
                         _a.label = 2;
-                    case 2: return [2 /*return*/, user];
+                    case 2:
+                        resolve(user);
+                        return [3 /*break*/, 4];
+                    case 3:
+                        error_1 = _a.sent();
+                        reject(error_1);
+                        return [3 /*break*/, 4];
+                    case 4: return [2 /*return*/];
                 }
             });
-        });
+        }); });
     };
     /**
      *
@@ -121,11 +125,14 @@ var UserRepository = /** @class */ (function () {
      * @memberof UserRepository
      */
     UserRepository.prototype.removeById = function (id) {
-        return __awaiter(this, void 0, void 0, function () {
-            var userToDelete;
+        var _this = this;
+        return new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+            var userToDelete, error_2;
             return __generator(this, function (_a) {
                 switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getById(id)];
+                    case 0:
+                        _a.trys.push([0, 4, , 5]);
+                        return [4 /*yield*/, models_1.User.findByIdAndRemove(id)];
                     case 1:
                         userToDelete = _a.sent();
                         if (!userToDelete) return [3 /*break*/, 3];
@@ -133,10 +140,17 @@ var UserRepository = /** @class */ (function () {
                     case 2:
                         _a.sent();
                         _a.label = 3;
-                    case 3: return [2 /*return*/, userToDelete];
+                    case 3:
+                        resolve(userToDelete);
+                        return [3 /*break*/, 5];
+                    case 4:
+                        error_2 = _a.sent();
+                        reject(error_2);
+                        return [3 /*break*/, 5];
+                    case 5: return [2 /*return*/];
                 }
             });
-        });
+        }); });
     };
     /**
      *
@@ -147,16 +161,30 @@ var UserRepository = /** @class */ (function () {
      */
     UserRepository.prototype.update = function (user) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0:
-                        if (!user._id) return [3 /*break*/, 2];
-                        return [4 /*yield*/, user.update()];
-                    case 1:
-                        _a.sent();
-                        _a.label = 2;
-                    case 2: return [2 /*return*/, user];
-                }
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var error_3;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 3, , 4]);
+                                    if (!user._id) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, user.update()];
+                                case 1:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2:
+                                    resolve(user);
+                                    return [3 /*break*/, 4];
+                                case 3:
+                                    error_3 = _a.sent();
+                                    reject(error_3);
+                                    return [3 /*break*/, 4];
+                                case 4: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };
@@ -170,22 +198,27 @@ var UserRepository = /** @class */ (function () {
      */
     UserRepository.prototype.updateById = function (id, user) {
         return __awaiter(this, void 0, void 0, function () {
-            var userToUpdate;
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getById(id)];
-                    case 1:
-                        userToUpdate = _a.sent();
-                        if (!userToUpdate) return [3 /*break*/, 3];
-                        userToUpdate.username = user.username;
-                        userToUpdate.email = user.email;
-                        userToUpdate.password = user.password;
-                        return [4 /*yield*/, userToUpdate.update()];
-                    case 2:
-                        _a.sent();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/, userToUpdate];
-                }
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var userToUpdate, error_4;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 2, , 3]);
+                                    return [4 /*yield*/, models_1.User.findByIdAndUpdate(id, user, { "new": true })];
+                                case 1:
+                                    userToUpdate = _a.sent();
+                                    resolve(userToUpdate);
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    error_4 = _a.sent();
+                                    reject(error_4);
+                                    return [3 /*break*/, 3];
+                                case 3: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };

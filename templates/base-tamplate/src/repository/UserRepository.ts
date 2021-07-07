@@ -1,6 +1,7 @@
 /* eslint-disable no-underscore-dangle */
 /* eslint-disable no-unused-vars */
 /* eslint-disable class-methods-use-this */
+import { UserDTO } from 'dtos';
 import { ICrud, IUser } from '../interfaces';
 import { User } from '../models';
 
@@ -19,11 +20,11 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<IUser>}  A user created
    * @memberof UserRepository
    */
-  async create(user: IUser): Promise<IUser> {
+  create(user: IUser): Promise<IUser> {
     return new Promise<IUser>((resolve, reject) => {
       user.save()
-      .then((user: IUser) => resolve(user))
-      .catch(err => reject(err))
+        .then((user: IUser) => resolve(user))
+        .catch(err => reject(err))
     })
   }
 
@@ -33,8 +34,12 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<Array<IUser>>}  A list of users
    * @memberof UserRepository
    */
-  async list(): Promise<Array<IUser>> {
-    return User.find({});
+  list(): Promise<Array<IUser>> {
+    return new Promise<Array<IUser>>((resolve, reject) => {
+      User.find({})
+        .then((user: Array<IUser>) => resolve(user))
+        .catch(err => reject(err))
+    })
   }
 
   /**
@@ -44,8 +49,12 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<IUser>}  A User
    * @memberof UserRepository
    */
-  async getById(id: string): Promise<IUser | null> {
-    return User.findById(id);
+  getById(id: string): Promise<IUser | null> {
+    return new Promise<IUser | null>((resolve, reject) => {
+      User.findById(id)
+        .then((user: IUser | null) => resolve(user))
+        .catch(err => reject(err))
+    })
   }
 
   /**
@@ -55,9 +64,15 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<IUser>}  A user removed
    * @memberof UserRepository
    */
-  async remove(user: IUser): Promise<IUser> {
-    if (user._id) await user.remove();
-    return user;
+  remove(user: IUser): Promise<IUser> {
+    return new Promise<IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await user.remove();
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   /**
@@ -67,10 +82,16 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<IUser>}  A user removed
    * @memberof UserRepository
    */
-  async removeById(id: string): Promise<IUser | null> {
-    const userToDelete = await this.getById(id);
-    if (userToDelete) await userToDelete.remove();
-    return userToDelete;
+  removeById(id: string): Promise<IUser | null> {
+    return new Promise<IUser | null>(async (resolve, reject) => {
+      try {
+        const userToDelete: IUser | null = await User.findByIdAndRemove(id)
+        if (userToDelete) await userToDelete.remove();
+        resolve(userToDelete)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   /**
@@ -81,8 +102,14 @@ class UserRepository implements ICrud<IUser, string> {
    * @memberof UserRepository
    */
   async update(user: IUser): Promise<IUser> {
-    if (user._id) await user.update();
-    return user;
+    return new Promise<IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await user.update();
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    });
   }
 
   /**
@@ -93,16 +120,16 @@ class UserRepository implements ICrud<IUser, string> {
    * @return {Promise<IUser>} A user updated
    * @memberof UserRepository
    */
-  async updateById(id: string, user: IUser):
-  Promise<IUser | null > {
-    const userToUpdate = await this.getById(id);
-    if (userToUpdate) {
-      userToUpdate.username = user.username;
-      userToUpdate.email = user.email;
-      userToUpdate.password = user.password;
-      await userToUpdate.update();
-    }
-    return userToUpdate;
+  async updateById(id: string, user: UserDTO):
+    Promise<IUser | null> {
+    return new Promise<IUser | null>(async (resolve, reject) => {
+      try {
+        const userToUpdate = await User.findByIdAndUpdate(id, user, { new: true})
+        resolve(userToUpdate)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 }
 export default new UserRepository();

@@ -1,15 +1,4 @@
 "use strict";
-var __assign = (this && this.__assign) || function () {
-    __assign = Object.assign || function(t) {
-        for (var s, i = 1, n = arguments.length; i < n; i++) {
-            s = arguments[i];
-            for (var p in s) if (Object.prototype.hasOwnProperty.call(s, p))
-                t[p] = s[p];
-        }
-        return t;
-    };
-    return __assign.apply(this, arguments);
-};
 var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
     function adopt(value) { return value instanceof P ? value : new P(function (resolve) { resolve(value); }); }
     return new (P || (P = Promise))(function (resolve, reject) {
@@ -48,7 +37,6 @@ var __generator = (this && this.__generator) || function (thisArg, body) {
 };
 exports.__esModule = true;
 var repository_1 = require("../repository");
-var models_1 = require("../models");
 /**
  *
  * The user service,layer of repository pattern
@@ -85,7 +73,10 @@ var UserService = /** @class */ (function () {
     UserService.prototype.list = function () {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, repository_1.UserRepository.list()];
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        repository_1.UserRepository.list()
+                            .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
+                    })];
             });
         });
     };
@@ -99,7 +90,10 @@ var UserService = /** @class */ (function () {
     UserService.prototype.getById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
             return __generator(this, function (_a) {
-                return [2 /*return*/, repository_1.UserRepository.getById(id)];
+                return [2 /*return*/, new Promise(function (resolve, reject) {
+                        repository_1.UserRepository.getById(id)
+                            .then(function (user) { return resolve(user); })["catch"](function (err) { return reject(err); });
+                    })];
             });
         });
     };
@@ -112,8 +106,30 @@ var UserService = /** @class */ (function () {
      */
     UserService.prototype.remove = function (user) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, repository_1.UserRepository.remove(user)];
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var error_1;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 3, , 4]);
+                                    if (!user._id) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, repository_1.UserRepository.remove(user)];
+                                case 1:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2:
+                                    resolve(user);
+                                    return [3 /*break*/, 4];
+                                case 3:
+                                    error_1 = _a.sent();
+                                    reject(error_1);
+                                    return [3 /*break*/, 4];
+                                case 4: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };
@@ -126,19 +142,33 @@ var UserService = /** @class */ (function () {
      */
     UserService.prototype.removeById = function (id) {
         return __awaiter(this, void 0, void 0, function () {
-            var taskToDelete;
+            var _this = this;
             return __generator(this, function (_a) {
-                switch (_a.label) {
-                    case 0: return [4 /*yield*/, this.getById(id)];
-                    case 1:
-                        taskToDelete = _a.sent();
-                        if (!taskToDelete) return [3 /*break*/, 3];
-                        return [4 /*yield*/, taskToDelete.remove()];
-                    case 2:
-                        _a.sent();
-                        _a.label = 3;
-                    case 3: return [2 /*return*/, taskToDelete];
-                }
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var userToDelete, error_2;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 4, , 5]);
+                                    return [4 /*yield*/, repository_1.UserRepository.removeById(id)];
+                                case 1:
+                                    userToDelete = _a.sent();
+                                    if (!userToDelete) return [3 /*break*/, 3];
+                                    return [4 /*yield*/, userToDelete.remove()];
+                                case 2:
+                                    _a.sent();
+                                    _a.label = 3;
+                                case 3:
+                                    resolve(userToDelete);
+                                    return [3 /*break*/, 5];
+                                case 4:
+                                    error_2 = _a.sent();
+                                    reject(error_2);
+                                    return [3 /*break*/, 5];
+                                case 5: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };
@@ -151,8 +181,30 @@ var UserService = /** @class */ (function () {
      */
     UserService.prototype.update = function (user) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
-                return [2 /*return*/, repository_1.UserRepository.update(user)];
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var error_3;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 3, , 4]);
+                                    if (!user._id) return [3 /*break*/, 2];
+                                    return [4 /*yield*/, repository_1.UserRepository.update(user)];
+                                case 1:
+                                    _a.sent();
+                                    _a.label = 2;
+                                case 2:
+                                    resolve(user);
+                                    return [3 /*break*/, 4];
+                                case 3:
+                                    error_3 = _a.sent();
+                                    reject(error_3);
+                                    return [3 /*break*/, 4];
+                                case 4: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };
@@ -164,13 +216,30 @@ var UserService = /** @class */ (function () {
      * @return {Promise<IUser>} A user updated
      * @memberof UserService
      */
-    UserService.prototype.updateById = function (id, body) {
+    UserService.prototype.updateById = function (id, user) {
         return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
             return __generator(this, function (_a) {
                 // eslint-disable-next-line no-unused-vars
-                return [2 /*return*/, new Promise(function (resolve, _) {
-                        models_1.User.findOneAndUpdate({ _id: id }, __assign({}, body), { "new": true }, function (error, task) { return resolve(task); });
-                    })];
+                return [2 /*return*/, new Promise(function (resolve, reject) { return __awaiter(_this, void 0, void 0, function () {
+                        var userToUpdate, error_4;
+                        return __generator(this, function (_a) {
+                            switch (_a.label) {
+                                case 0:
+                                    _a.trys.push([0, 2, , 3]);
+                                    return [4 /*yield*/, repository_1.UserRepository.updateById(id, user)];
+                                case 1:
+                                    userToUpdate = _a.sent();
+                                    resolve(userToUpdate);
+                                    return [3 /*break*/, 3];
+                                case 2:
+                                    error_4 = _a.sent();
+                                    reject(error_4);
+                                    return [3 /*break*/, 3];
+                                case 3: return [2 /*return*/];
+                            }
+                        });
+                    }); })];
             });
         });
     };

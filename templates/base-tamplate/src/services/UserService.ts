@@ -2,6 +2,7 @@
 import { ICrud, IUser} from '../interfaces';
 import { UserRepository } from '../repository';
 import { User} from '../models';
+import { UserDTO } from 'dtos';
 
 /**
  *
@@ -33,7 +34,11 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async list(): Promise<Array<IUser>> {
-    return UserRepository.list();
+    return new Promise<Array<IUser>>((resolve, reject) => {
+      UserRepository.list()
+        .then((user: Array<IUser>) => resolve(user))
+        .catch(err => reject(err))
+    })
   }
 
   /**
@@ -44,7 +49,11 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async getById(id: string): Promise<IUser| null> {
-    return UserRepository.getById(id);
+    return new Promise<IUser | null>((resolve, reject) => {
+      UserRepository.getById(id)
+        .then((user: IUser | null) => resolve(user))
+        .catch(err => reject(err))
+    })
   }
 
   /**
@@ -55,7 +64,14 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async remove(user: IUser): Promise<IUser> {
-    return UserRepository.remove(user);
+    return new Promise<IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await UserRepository.remove(user);
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   /**
@@ -66,9 +82,15 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async removeById(id: string): Promise<IUser| null> {
-    const taskToDelete = await this.getById(id);
-    if (taskToDelete) await taskToDelete.remove();
-    return taskToDelete;
+    return new Promise<IUser | null>(async (resolve, reject) => {
+      try {
+        const userToDelete: IUser | null = await UserRepository.removeById(id)
+        if (userToDelete) await userToDelete.remove();
+        resolve(userToDelete)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 
   /**
@@ -79,7 +101,14 @@ class UserService implements ICrud<IUser, string> {
    * @memberof UserService
    */
   async update(user: IUser): Promise<IUser> {
-    return UserRepository.update(user);
+    return new Promise<IUser>(async (resolve, reject) => {
+      try {
+        if (user._id) await UserRepository.update(user)
+        resolve(user)
+      } catch (error) {
+        reject(error)
+      }
+    });
   }
 
   /**
@@ -90,12 +119,16 @@ class UserService implements ICrud<IUser, string> {
    * @return {Promise<IUser>} A user updated
    * @memberof UserService
    */
-  async updateById(id: string, body: Object): Promise<IUser| null > {
+  async updateById(id: string, user: UserDTO): Promise<IUser| null > {
     // eslint-disable-next-line no-unused-vars
-    return new Promise<IUser| null>((resolve, _) => {
-      User.findOneAndUpdate({ _id: id }, { ...body }, { new: true },
-        (error, task: IUser| null) => resolve(task));
-    });
+    return new Promise<IUser | null>(async (resolve, reject) => {
+      try {
+        const userToUpdate = await UserRepository.updateById(id, user)
+        resolve(userToUpdate)
+      } catch (error) {
+        reject(error)
+      }
+    })
   }
 }
 
