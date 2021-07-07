@@ -11,8 +11,7 @@ module.exports = {
   ],
   setupFiles: ['<rootDir>/src/setupTests.ts'],
   moduleDirectories: [
-    'node_modules',
-    'utils/tests',
+    'node_modules'
   ],
   testEnvironment: 'node',
   testMatch: [
@@ -21,7 +20,6 @@ module.exports = {
   ],
   testPathIgnorePatterns: [
     'node_modules',
-    'src/utils/tests',
     'dist',
     'jsdoc',
   ],

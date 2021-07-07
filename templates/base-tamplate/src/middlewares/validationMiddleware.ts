@@ -29,8 +29,6 @@ const validationMiddleware = (
     if (errors.length > 0) {
       const message = errors
         .map((error: ValidationError) => {
-          console.log(error);
-          
           if (error.constraints) {
              return Object.values(error.constraints)
           };

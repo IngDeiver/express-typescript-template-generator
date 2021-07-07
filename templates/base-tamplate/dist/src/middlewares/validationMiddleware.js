@@ -27,7 +27,6 @@ value) {
             if (errors.length > 0) {
                 var message = errors
                     .map(function (error) {
-                    console.log(error);
                     if (error.constraints) {
                         return Object.values(error.constraints);
                     }
